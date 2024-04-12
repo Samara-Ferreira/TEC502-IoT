@@ -9,7 +9,6 @@ com a API RESTful para a aplicação
 import threading
 import socket
 import requests # Importar a biblioteca requests para comunicação HTTP
-import api
 
 # Lista de dispositivos conectados
 devicesConnected = {}
@@ -52,23 +51,26 @@ def deviceConnection():
             print(f"Conexão estabelecida com {address}\n")
             print(f"Dispositivos conectados: {devicesConnected}\n")
 
-            device_address = address[1]
-            print(f"ENDEREÇO DISPOSITIVO: {device_address}\n")
-            ip_dispositivos.append(device_address)
-            devicesConnected[address] = device
+            #device_address = address[1]
 
-            api.mudarChaveID(device_address)
+            device_address = "1"
+            devicesConnected[device_address] = device   
+
+            print(f"ENDEREÇO DISPOSITIVO: {device_address}\n")
+            #ip_dispositivos.append(device_address)
+            
+            #devicesConnected[address] = device
 
         except:
             print(f"Erro ao aceitar conexão.\n")
 
 
 def sendCommandTCP(device_address, command):
-    print("dados da api: ", device_address, command)
-    print()
-
+    print("chegou aq?\n")
+    print("dic: ", devicesConnected)
     if device_address in devicesConnected:
         try: 
+            print("e aq??\n")
             devicesConnected[device_address].send(command.encode("utf-8"))
             print("Comando enviado para o dispositivo.\n")
         except Exception as e:

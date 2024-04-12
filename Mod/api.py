@@ -40,21 +40,21 @@ devices = [{
 }]"""
 
 # provisorio...
-devicesDict = {"SET01": {"IP": "localhost", 
-                        "tipo de dispositivo": "Sensor",
-                        "status": True}}    
+devicesDict = {"IP1": {"id": "SET01", 
+                        "number": 0,
+                        "categoria": "sensor",
+                        "status": False}, 
+                "IP2": {"id": "GEL01",
+                        "number": 0,
+                        "categoria": "atuador",
+                        "status": False}} 
 
 #------------------------------------------------
-
-def mudarChaveID(address):
-    devicesDict[f"{address}"] = devicesDict.pop("SET01")
-    print("DICIONARIO API: ", devicesDict)
-    print()
 
 # rota para enviar um comando para um dispositivo especifico
 @app.route("/devices", methods=["GET"]) 
 def getDevices():
-    return jsonify(broker.sendCommandTCP(next(iter(devicesDict)), "COMANDO"))
+    return jsonify(broker.sendCommandTCP("1", "COMANDO"))
 
 
 #------------------------------------------------
