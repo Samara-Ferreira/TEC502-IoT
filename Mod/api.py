@@ -15,7 +15,6 @@ DESCRIÇÃO
 
 # importação de bibliotecas necessárias
 from flask import Flask, request, jsonify
-import requests
 import broker
 
 IP_SERVER = "localhost"
@@ -39,22 +38,39 @@ devices = [{
     "status": True
 }]"""
 
-# provisorio...
-devicesDict = {"IP1": {"id": "SET01", 
-                        "number": 0,
-                        "categoria": "sensor",
-                        "status": False}, 
+'''# provisorio...
+devicesDict = {, 
+
                 "IP2": {"id": "GEL01",
                         "number": 0,
+                        "data": 0,
                         "categoria": "atuador",
-                        "status": False}} 
+                        "status": False}} '''
+
+ipDevices = []
 
 #------------------------------------------------
 
-# rota para enviar um comando para um dispositivo especifico
-@app.route("/devices", methods=["GET"]) 
-def getDevices():
-    return jsonify(broker.sendCommandTCP("1", "COMANDO"))
+# rota para enviar o comando de ligar um dispositivo
+@app.route("/devices/<string:device_id>/ligar", methods=["POST"])
+def ligarDevice(device_id):
+    return jsonify(broker.sendCommandTCP(device_id, "1", 0))
+
+# rota para enviar o comando de desligar um dispositivo
+@app.route("/devices/<string:device_id>/desligar", methods=["POST"])
+def desligarDevice(device_id):
+    return jsonify(broker.sendCommandTCP(device_id, "2", 0))
+
+# rota para enviar o comando de mudar a temperatura de um dispositivo
+@app.route("/devices/<string:device_id>/<int:new_data>", methods=["POST"])
+def mudarTemperaturaDevice(device_id, new_data):
+    #new_data = request.get_json().get("data")
+    return jsonify(broker.sendCommandTCP(device_id, "3", new_data))
+
+# rota para enviar o comando de visualizar os dados de um dispositivo
+@app.route("/devices/<string:device_id>/visualizarDados", methods=["GET"])
+def visualizarDadosDevice(device_id):
+    return jsonify(broker.sendCommandTCP(device_id, "4", 0))
 
 
 #------------------------------------------------
