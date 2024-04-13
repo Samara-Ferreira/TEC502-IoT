@@ -8,7 +8,7 @@ com a API RESTful para a aplicação
 '''
 import threading
 import socket
-import requests # Importar a biblioteca requests para comunicação HTTP
+import sensor
 
 # Lista de dispositivos conectados
 devicesConnected = {}
@@ -18,18 +18,15 @@ HOST = "localhost"
 TCP_PORT = 5001
 UDP_PORT = 5002
 
-ip_dispositivos = []
-
 tcp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # TCP
 udp_server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)   # UDP
-
 
 def main():
     try: 
         # conexão dos sockets à mesma porta
         # recebimento de uma tupla
         tcp_server.bind((HOST, TCP_PORT))
-        tcp_server.listen(5)    # máximo de 5 conexões
+        tcp_server.listen(2)    # máximo de 5 conexões
         
         udp_server.bind((HOST, UDP_PORT))   
         print("Servidor iniciado!\n")
@@ -51,28 +48,22 @@ def deviceConnection():
             print(f"Conexão estabelecida com {address}\n")
             print(f"Dispositivos conectados: {devicesConnected}\n")
 
-            #device_address = address[1]
-
-            device_address = "1"
-            devicesConnected[device_address] = device   
-
+            '''device_address = address[1]
             print(f"ENDEREÇO DISPOSITIVO: {device_address}\n")
-            #ip_dispositivos.append(device_address)
+            ip_dispositivos.append(device_address)'''
             
-            #devicesConnected[address] = device
+            device_address = sensor.getId()
+            devicesConnected[device_address] = device
 
         except:
             print(f"Erro ao aceitar conexão.\n")
 
-
-def sendCommandTCP(device_address, command):
-    print("chegou aq?\n")
-    print("dic: ", devicesConnected)
+def sendCommandTCP(device_address, command, data):
     if device_address in devicesConnected:
         try: 
-            print("e aq??\n")
-            devicesConnected[device_address].send(command.encode("utf-8"))
-            print("Comando enviado para o dispositivo.\n")
+            message = f"{command}:{data}"
+            devicesConnected[device_address].send(message.encode("utf-8"))
+            print(f"Comando enviado para o dispositivo {message}\n")
         except Exception as e:
             print(f"Erro ao enviar comando para o dispositivo: {e}\n")
 
