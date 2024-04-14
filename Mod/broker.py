@@ -8,11 +8,10 @@ com a API RESTful para a aplicação
 '''
 import threading
 import socket
-import sensor
 
 # Lista de dispositivos conectados
 devicesConnected = {}
-#socketsList = []
+socketsList = []
 
 HOST = "localhost"
 TCP_PORT = 5001
@@ -35,10 +34,6 @@ def main():
         
     # threads para lidar com as conexões TCP e UDP 
     threading.Thread(target=deviceConnection, args=[]).start()
-    # criando uma thread para receber os dados do device via UDP
-    threading.Thread(target=receiveDataUDP, args=[]).start()
-    # criando uma thread para receber os dados do device via TCP
-    threading.Thread(target=receiveDataTCP, args=[]).start()
 
 def deviceConnection():
     while True:
@@ -46,19 +41,24 @@ def deviceConnection():
             print("Aguardando conexões...\n")
             device, address = tcp_server.accept()  # aceitar conexão do device
             print(f"Conexão estabelecida com {address}\n")
+
+            # nos PCs de lá, trocar para o 0
+            device_address = address[1]            
+            devicesConnected[device_address] = device
             print(f"Dispositivos conectados: {devicesConnected}\n")
 
-            '''device_address = address[1]
-            print(f"ENDEREÇO DISPOSITIVO: {device_address}\n")
-            ip_dispositivos.append(device_address)'''
-            
-            device_address = sensor.getId()
-            devicesConnected[device_address] = device
+            # criando uma thread para receber os dados do device via UDP
+            threading.Thread(target=receiveDataUDP, args=[]).start()
+            # criando uma thread para receber os dados do device via TCP
+            threading.Thread(target=receiveDataTCP, args=[device]).start()
 
         except:
             print(f"Erro ao aceitar conexão.\n")
+            break
+
 
 def sendCommandTCP(device_address, command, data):
+    device_address = int(device_address)
     if device_address in devicesConnected:
         try: 
             message = f"{command}:{data}"
@@ -75,15 +75,16 @@ def receiveDataUDP():
             print(f"Dados do dispositivo {address} via UDP: {data_device.decode('utf-8')}\n")
         except Exception as e:
             print(f"Erro ao receber dados do dispositivo via UDP: {e}")
+            break
 
-def receiveDataTCP():
+def receiveDataTCP(device):
     while True: 
-        for device in devicesConnected.values():
-            try: 
-                data = device.recv(2048)  # receber dados do device
-                print(f"Dados do dispositivo via TCP: {data.decode('utf-8')}\n")
-            except Exception as e:
-                print(f"Erro ao receber dados do dispositivo via TCP: {e}")
+        try: 
+            data = device.recv(2048)  # receber dados do device
+            print(f"Dados do dispositivo via TCP: {data.decode('utf-8')}\n")
+        except Exception as e:
+            print(f"Erro ao receber dados do dispositivo via TCP: {e}")
+            break
 
 
 if __name__ == "__main__":
