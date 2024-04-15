@@ -43,7 +43,7 @@ def deviceConnection():
             print(f"Conexão estabelecida com {address}\n")
 
             # nos PCs de lá, trocar para o 0
-            device_address = address[1]            
+            device_address = address[0]            
             devicesConnected[device_address] = device
             print(f"Dispositivos conectados: {devicesConnected}\n")
 
@@ -58,7 +58,6 @@ def deviceConnection():
 
 
 def sendCommandTCP(device_address, command, data):
-    device_address = int(device_address)
     if device_address in devicesConnected:
         try: 
             message = f"{command}:{data}"
