@@ -22,16 +22,15 @@ tcp_sensor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 udp_sensor = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # dicionário para armazenar os dados do sensor
-sensor = {"address": 0, 
-        "ip": 0,
+sensor = {"ip": 0,
         "id": "SENV01",
         "data": 0,
         "category": "sensor",
         "status": False}
 
 # função para setar o endereço do sensor
-def setAddress(address):
-    sensor["address"] = address
+def setIP(ip):
+    sensor["ip"] = ip
 
 # função para ligar o sensor
 def turnOnSensor():
@@ -44,6 +43,9 @@ def turnOffSensor():
 # função para retornar a velocidade atual
 def getVelocity():
     return sensor["data"]
+
+def getDic():
+    return sensor
 
 # função para visualizar os dados do sensor
 def viewData():
@@ -110,7 +112,10 @@ def receiveTCP():
             messageReceive = tcp_sensor.recv(2048).decode("utf-8")
             command, data = messageReceive.split(":")
 
-            if (command == "1"):
+            if (command == "0"):
+                sendTCP(str(sensor))
+
+            elif (command == "1"):
                 turnOnSensor()
                 sendTCP("CONFIRMAÇÃO: SENSOR LIGADO\n")
             elif (command == "2"):
@@ -184,7 +189,7 @@ def closeProgram():
 # conexão com o servidor
 try:
     tcp_sensor.connect((HOST, TCP_PORT))
-    setAddress(tcp_sensor.getsockname()[0])
+    setIP(tcp_sensor.getsockname()[0])
 except Exception as e:
     print(f"Erro ao conectar o sensor ao servidor: {e}\n")
 
