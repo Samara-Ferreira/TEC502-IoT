@@ -3,6 +3,7 @@ DESCRIÇÃO: Sensor de velocidade
 - Funcionalidades do sensor: ligar, desligar, mudar o valor da velocidade, retornar o valor da velocidade
 '''
 
+
 # bibliotecas necessárias 
 import threading
 import socket
@@ -20,7 +21,6 @@ threads = []
 tcp_sensor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 udp_sensor = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-
 # dicionário para armazenar os dados do sensor
 sensor = {"address": 0, 
         "ip": 0,
@@ -36,20 +36,10 @@ def setAddress(address):
 # função para ligar o sensor
 def turnOnSensor():
     sensor["status"] = True
-    sendTCP("CONFIRMAÇÃO: SENSOR LIGADO\n")
 
 # função para desligar o sensor
 def turnOffSensor():
     sensor["status"] = False
-    sendTCP("CONFIRMAÇÃO: SENSOR DESLIGADO\n")
-
-# função para mudar a velocidade 
-def changeVelocity(velocity):
-    if (sensor["status"] == False):
-        print("O sensor está desligado, não é possível mudar os dados!\n")
-    else:
-        sensor["data"] = velocity
-        sendTCP(f"CONFIRMAÇÃO: VELOCIDADE ALTERADA PARA {velocity}\n")
 
 # função para retornar a velocidade atual
 def getVelocity():
@@ -68,6 +58,7 @@ def viewData():
 
 # menu do sensor
 def menuSensor():
+    os.system("cls")
     # simulação do 'do while'
     while True:
         print("\n--MENU DO SENSOR DE VELOCIDADE--\n")
@@ -91,7 +82,13 @@ def menuSensor():
             while (not(velocity.isdigit())):
                 print("Digite um valor inteiro para a velocidade.\n")
                 velocity = input("Digite o valor da velocidade: ")
-            changeVelocity(velocity)
+
+            # verificação se o sensor está ligado ou desligado
+            if (sensor["status"] == False):
+                print("O sensor está desligado, não é possível mudar os dados!\n")
+            else:
+                sensor["data"] = velocity
+
         elif (option == "4"):
             print(f"Velocidade atual: {getVelocity()}\n")
         elif (option == "5"):
@@ -99,7 +96,7 @@ def menuSensor():
         # condição para sair do laço 
         elif (option == "6"):
             print("Encerrando o programa...\n")
-            #closeProgram()
+            closeProgram()
             break
         else:
             print("Opção inválida.\n")
@@ -120,10 +117,16 @@ def receiveTCP():
                 turnOffSensor()
                 sendTCP("CONFIRMAÇÃO: SENSOR DESLIGADO\n")
             elif (command == "3"):
-                changeVelocity(data)
-                send_thread = threading.Thread(target=sendUDP, args=[data]).start()
-                threads.append(send_thread)
-            # quando peço para retornar os dados uma única vez, é tcp ou udp?
+                if (sensor["status"] == False):
+                    # mudar para código de erro, quando for solicitado pelo servidor
+                    sendTCP("O sensor está desligado, não é possível mudar os dados!\n")
+                else:
+                    sensor["data"] = data
+                    sendTCP(f"CONFIRMAÇÃO: VELOCIDADE ALTERADA PARA {data}\n")
+                    send_thread = threading.Thread(target=sendUDP, args=[data])
+                    threads.append(send_thread)
+                    send_thread.start()
+                    
             elif (command == "4"):
                 sendTCP(f"VELOCIDADE ATUAL: {getVelocity()}\n")
             elif (command == "5"):
@@ -131,7 +134,7 @@ def receiveTCP():
             elif (command == "6"):
                 print("Encerrando o programa...\n")
                 sendTCP("CONFIRMAÇÃO: PROGRAMA ENCERRADO\n")
-                #closeProgram()
+                closeProgram()
                 keep_alive = False
             else:
                 print("Comando inválido.\n")
@@ -160,10 +163,16 @@ def sendUDP(message):
             keep_alive = False
     
 def closeProgram():
-    # esperando as threads terminarem 
-    for t in threads:
-        print(f"thread: {t}\n")
-        t.join()
+    '''for i in range(len(threads)):
+        try:
+            threads[i].join()
+        except Exception as e:
+            print(f"Erro ao encerrar a thread: {e}\n")
+
+    #threads.pop(0)
+    print("\nthreads: ")
+    print(threads)'''
+
 
     # fechando a conexão
     tcp_sensor.close()
@@ -180,11 +189,12 @@ except Exception as e:
     print(f"Erro ao conectar o sensor ao servidor: {e}\n")
 
 # threads para receber os dados via TCP e para o menu do sensor
-receive_thread = threading.Thread(target=receiveTCP, args=[]).start()
-menu_thread = threading.Thread(target=menuSensor, args=[]).start()
-
+receive_thread = threading.Thread(target=receiveTCP, args=[])
 threads.append(receive_thread)
+receive_thread.start()
+menu_thread = threading.Thread(target=menuSensor, args=[])
 threads.append(menu_thread)
+menu_thread.start()
 
 
 
