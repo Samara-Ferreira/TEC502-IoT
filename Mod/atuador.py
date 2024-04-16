@@ -22,15 +22,14 @@ udp_frigde = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 
 # dicionário para armazenar os dados da geladeira
-frigde = {"address": 0,
-        "ip": 0,
+frigde = {"ip": 0,
         "id": "GEL01",
         "data": 0,
         "categoria": "atuador",
         "status": False}
 
-def setAddress(address):
-    frigde["address"] = address
+def setIP(ip):
+    frigde["ip"] = ip
 
 def turnOnFrigde():
     frigde["status"] = True
@@ -153,7 +152,7 @@ def closeProgram():
 
 try:
     tcp_frigde.connect((HOST, TCP_PORT))
-    setAddress(tcp_frigde.getsockname()[0]) # se quiser pegar o ip, seta com o getsockname()[0]
+    setIP(tcp_frigde.getsockname()[0]) # se quiser pegar o ip, seta com o getsockname()[0]
 except Exception as e:
     print(f"Erro ao conectar a geladeira ao servidor: {e}\n")
 
