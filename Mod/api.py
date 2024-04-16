@@ -62,7 +62,7 @@ def desligarDevice(device_id):
     return jsonify(broker.sendCommandTCP(device_id, "2", 0))
 
 # rota para enviar o comando de mudar a temperatura de um dispositivo
-@app.route("/devices/<string:device_id>/<int:new_data>", methods=["POST"])
+@app.route("/devices/<string:device_id>/mudar/<int:new_data>", methods=["POST"])
 def mudarTemperaturaDevice(device_id, new_data):
     #new_data = request.get_json().get("data")
     return jsonify(broker.sendCommandTCP(device_id, "3", new_data))
