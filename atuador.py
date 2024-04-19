@@ -37,13 +37,13 @@ def menu_frigde():
     while True:
         os.system("cls")
 
-        print("\n----MENU DA GELADEIRA----\n")
-        print("[1] Ligar geladeira\n")
-        print("[2] Desligar geladeira\n")
-        print("[3] Mudar temperatura\n")
-        print("[4] Retornar a temperatura\n")
-        print("[5] Visualizar os dados da geladeira\n")
-        print("[0] Encerrar programa\n")
+        print("----MENU DA GELADEIRA----")
+        print("[1] Ligar geladeira")
+        print("[2] Desligar geladeira")
+        print("[3] Mudar temperatura")
+        print("[4] Retornar a temperatura")
+        print("[5] Visualizar os dados da geladeira")
+        print("[0] Encerrar programa")
         option = str(input("Digite a opção desejada: "))
 
         if option == "1":
@@ -106,6 +106,7 @@ def view_data():
 
 # função para encerrar o programa
 def close_program():
+    send_tcp("CLOSE")
     print("Encerrando o programa...\n")
     tcp_frigde.close()
     udp_frigde.close()
@@ -123,12 +124,15 @@ def send_tcp(message):
 # função para enviar uma mensagem via UDP
 def send_udp(message):
     while True:
-        try:
-            udp_frigde.sendto(message.encode("utf-8"), (HOST, UDP_PORT))
-            time.sleep(5)
-        except Exception as e:
-            print(f"Erro ao enviar mensagem via UDP: {e}\n")
+        if frigde["status"] is False:
             break
+        else:
+            try:
+                udp_frigde.sendto(message.encode("utf-8"), (HOST, UDP_PORT))
+                time.sleep(5)
+            except Exception as e:
+                print(f"Erro ao enviar mensagem via UDP: {e}\n")
+                break
 
 
 # função para receber uma mensagem via TCP
@@ -156,7 +160,6 @@ def receive_tcp():
             elif command == "5":
                 send_tcp(str(frigde))
             elif command == "0":
-                send_tcp("CONFIRMAÇÃO: PROGRAMA ENCERRADO\n")
                 close_program()
                 break
 
