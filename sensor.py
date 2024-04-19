@@ -37,13 +37,13 @@ def menu_sensor():
     while True:
         os.system("cls")
 
-        print("\n----MENU DO SENSOR----\n")
-        print("[1] Ligar sensor\n")
-        print("[2] Desligar sensor\n")
-        print("[3] Mudar dado\n")
-        print("[4] Retornar dado\n")
-        print("[5] Visualizar os dados do sensor\n")
-        print("[0] Encerrar programa\n")
+        print("\n----MENU DO SENSOR----")
+        print("[1] Ligar sensor")
+        print("[2] Desligar sensor")
+        print("[3] Mudar dado")
+        print("[4] Retornar dado")
+        print("[5] Visualizar os dados do sensor")
+        print("[0] Encerrar programa")
         option = str(input("Digite a opção desejada: "))
 
         if option == "1":
@@ -106,6 +106,7 @@ def view_data():
 
 # função para encerrar o programa
 def close_program():
+    send_tcp("CLOSE")
     print("Encerrando programa...\n")
     tcp_sensor.close()
     udp_sensor.close()
@@ -123,12 +124,15 @@ def send_tcp(message):
 # função para enviar uma mensagem via UDP
 def send_udp(message):
     while True:
-        try:
-            udp_sensor.sendto(message.encode("utf-8"), (HOST, UDP_PORT))
-            time.sleep(5)
-        except Exception as e:
-            print(f"Erro ao enviar mensagem via UDP: {e}\n")
+        if sensor["status"] is False:
             break
+        else:
+            try:
+                udp_sensor.sendto(message.encode("utf-8"), (HOST, UDP_PORT))
+                time.sleep(5)
+            except Exception as e:
+                print(f"Erro ao enviar mensagem via UDP: {e}\n")
+                break
 
 
 # função para receber os dados via TCP
