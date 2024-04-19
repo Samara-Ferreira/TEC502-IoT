@@ -79,7 +79,9 @@ def receive_data_tcp(device):
     try:
         data = device.recv(2048)
         print(f"Recebido {data.decode('utf-8')} via TCP\n")
-        # dict_data = eval(data.decode('utf-8'))
+        if data.decode('utf-8') == "CLOSE":
+            allDevices.pop(device)
+            return "Programa encerrado!"
         return data.decode('utf-8')
     except Exception as e:
         print(f"Erro ao receber dados via TCP: {e}\n")
@@ -111,6 +113,16 @@ def receive_command_api(device_address, command, data):
                 return response
             except Exception as e:
                 print(f"Erro ao enviar comando para a api: {e}\n")
+
+
+# função para encerrar o servidor
+def close_broker():
+    for device in socketsDevice.values():
+        device.close()
+    tcp_server.close()
+    udp_server.close()
+
+    print("Broker encerrado com sucesso!")
 
 
 # chamando a função principal
