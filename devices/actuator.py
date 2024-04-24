@@ -3,8 +3,8 @@
 # importação de bibliotecas necessárias
 import threading
 import socket
+import random
 import time
-import os
 
 """ DISPOSITIVO: GELADEIRA """
 """ Funcionalidades: 
@@ -26,8 +26,11 @@ TCP_PORT = 5001
 UDP_PORT = 5002
 
 # sockets para comunicação com o servidor
-tcp_frigde = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 udp_frigde = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+# lista de sockets para comunicação com o broker
+socketList = []
+
 
 # dicionário para armazenar os dados da geladeira
 frigde = {"ip": 0,
@@ -38,21 +41,48 @@ frigde = {"ip": 0,
           "status": False}
 
 
-# função principal
-def main():
+# função para se conectar ao broker
+def connect_broker():
     try:
+        tcp_frigde = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        socketList.append(tcp_frigde)
+
         tcp_frigde.connect((HOST, TCP_PORT))
         threading.Thread(target=receive_tcp, args=[]).start()
-        menu_frigde()
+        print("Dispositivo conectado ao broker!\n")
+
     except Exception as e:
         print(f"ERRO: não foi possível se conectar com o servidor: {e}\n")
         close_program()
 
 
+# função para desconectar do broker
+def disconnect_broker():
+    try:
+        send_tcp("CLOSE")
+        time.sleep(0.5)
+        socketList[0].close()
+        socketList.clear()
+        print("Dispositivo desconectado do broker!\n")
+    except Exception as e:
+        print(f"ERRO: não foi possível desconectar do servidor: {e}\n")
+
+
+# função para encerrar o programa
+def close_program():
+    try:
+        if socketList:
+            disconnect_broker()
+        udp_frigde.close()
+    except Exception as e:
+        print(f"ERRO: não fo5i possível encerrar o programa: {e}\n")
+
+
 # menu para a geladeira no terminal do dispositivo
 def menu_frigde():
     while True:
-        os.system("cls")
+
+        view_data()
 
         print("+" + "-" * 50 + "+")
         print("|" + " MENU DA GELADEIRA".center(50) + "|")
@@ -60,24 +90,25 @@ def menu_frigde():
         print("|" + " [1] Ligar a geladeira".ljust(50) + "|")
         print("|" + " [2] Desligar a geladeira".ljust(50) + "|")
         print("|" + " [3] Mudar a temperatura da geladeira".ljust(50) + "|")
-        print("|" + " [4] Retornar a temperatura da geladeira".ljust(50) + "|")
-        print("|" + " [5] Visualizar os dados da geladeira".ljust(50) + "|")
-        print("|" + " [6] Adicionar itens a geladeira".ljust(50) + "|")
-        print("|" + " [7] Remover itens da geladeira".ljust(50) + "|")
-        print("|" + " [8] Retornar a quantidade de itens da geladeira".ljust(50) + "|")
-        print("|" + " [9] Retornar a lista de itens da geladeira".ljust(50) + "|")
+        print("|" + " [4] Gerar valores randomicos para a temperatura".ljust(50) + "|")
+        print("|" + " [5] Conectar ao broker".ljust(50) + "|")
+        print("|" + " [6] Desconectar do broker".ljust(50) + "|")
+        print("|" + " [7] Alterar nome do dispositivo".ljust(50) + "|")
         print("|" + " [0] Encerrar programa".ljust(50) + "|")
         print("+" + "-" * 50 + "+")
 
         print("\nDigite a opção desejada: ")
         option = str(input("> "))
 
+        # opção para ligar a geladeira
         if option == "1":
             turn_on_frigde()
 
+        # opção para desligar a geladeira
         elif option == "2":
             turn_off_frigde()
 
+        # opção para mudar a temperatura da geladeira
         elif option == "3":
             if frigde["status"] is False:
                 print("ERRO: não é possível modificar a temperatura, pois a geladeira está desligada!\n")
@@ -86,40 +117,25 @@ def menu_frigde():
                 data = float(input("> "))
                 change_temperature(data)
 
+        # opção para gerar valores randomicos para a temperatura (-18 a 4)
         elif option == "4":
-            print("|" + f"Temperatura atual: ", round(get_temperature(), 2), "\n")
+            change_temperature(round(random.uniform(-18, 4), 2))
 
+        # opção para conectar ao broker
         elif option == "5":
-            view_data()
+            connect_broker()
 
+        # opção para desconectar do broker
         elif option == "6":
-            print("Digite o item que deseja adicionar: ")
-            item = str(input("> ")).lower()
-            print("Digite a quantidade do item: ")
-            quantity = int(input("> "))
-            add_item(item, quantity)
+            disconnect_broker()
 
+        # opção para alterar o nome do dispositivo
         elif option == "7":
-            view_items()
-            print("Digite o item que deseja remover: ")
-            item = str(input("> ")).lower()
-            print("Digite a quantidade do item: ")
-            quantity = int(input("> "))
+            # colocar aqui validações....
+            print("Digite o novo nome do dispositivo: ")
+            frigde["id"] = str(input("> "))
 
-            if item in frigde["items"]:
-                if frigde["items"][item] >= quantity:
-                    remove_item(item, quantity)
-                else:
-                    print("Não há itens suficientes para serem removidos!\n")
-            else:
-                print("Item não encontrado!\n")
-
-        elif option == "8":
-            print(f"Quantidade de itens na geladeira: {get_quantity()}\n")
-
-        elif option == "9":
-            view_items()
-
+        # opção para encerrar o programa
         elif option == "0":
             close_program()
             break
@@ -155,10 +171,7 @@ def get_quantity():
 
 # função para mudar a temperatura da geladeira
 def change_temperature(temperature):
-    if frigde["status"] is False:
-        print("A geladeira está desligada, não é possível mudar os dados!\n")
-    else:
-        frigde["data"] = temperature
+    frigde["data"] = temperature
 
 
 # função para adicionar itens a geladeira
@@ -182,14 +195,15 @@ def remove_item(item, quantity):
 # função para visualizar os dados da geladeira
 def view_data():
     print("\n+" + "-" * 30 + "+")
-    print("|" + " DADOS DA GELADEIRA".center(30) + "|")
+    print("| " + " DADOS DA GELADEIRA".center(30) + "|")
     print("+" + "-" * 30 + "+")
-    print("|" + f"ID: {frigde['id']}".ljust(30) + "|")
-    print("|" + f"Temperatura: {frigde['data']}".ljust(30) + "|")
-    print("|" + f"Status: {frigde['status']}".ljust(30) + "|")
-    print("|" + f"Endereço: {frigde['ip']}".ljust(30) + "|")
-    print("|" + f"Categoria: {frigde['category']}".ljust(30) + "|")
-    print("|" + f"Quantidade de itens: {get_quantity()}".ljust(30) + "|")
+    print("| " + f"IP: {frigde['ip']}".ljust(30) + "|")
+    print("| " + f"ID: {frigde['id']}".ljust(30) + "|")
+    print("| " + f"Temperatura: {frigde['data']}ºC".ljust(30) + "|")
+    print("| " + f"Status: {frigde['status']}".ljust(30) + "|")
+    print("| " + f"Endereço: {frigde['ip']}".ljust(30) + "|")
+    print("| " + f"Categoria: {frigde['category']}".ljust(30) + "|")
+    print("| " + f"Quantidade de itens: {get_quantity()}".ljust(30) + "|")
     print("+" + "-" * 30 + "+\n")
 
 
@@ -203,21 +217,13 @@ def view_items():
     print("+" + "-" * 30 + "+\n")
 
 
-# função para encerrar o programa
-def close_program():
-    send_tcp("CLOSE")
-    print("Encerrando o programa...\n")
-    tcp_frigde.close()
-    udp_frigde.close()
-    exit()
-
-
 # função para enviar uma mensagem via TCP
 def send_tcp(message):
     try:
-        tcp_frigde.send(message.encode("utf-8"))
+        socketList[0].send(message.encode("utf-8"))
     except Exception as e:
         print(f"ERRO: não foi possível enviar a mensagem via TCP: {e}\n")
+        time.sleep(2)
 
 
 # função para enviar uma mensagem via UDP
@@ -231,6 +237,7 @@ def send_udp(message):
                 time.sleep(5)
             except Exception as e:
                 print(f"ERRO: não foi possível enviar a mensagem via UDP: {e}\n")
+                time.sleep(2)
                 break
 
 
@@ -238,8 +245,12 @@ def send_udp(message):
 def receive_tcp():
     while True:
         try:
-            data = tcp_frigde.recv(2048).decode("utf-8")
+            data = socketList[0].recv(2048).decode("utf-8")
             command, data = data.split(":")
+
+            # opção para setar o endereço da geladeira
+            if command == "-1":
+                set_frigde_address(data)
 
             if command == "1":
                 turn_on_frigde()
@@ -254,11 +265,11 @@ def receive_tcp():
                     send_tcp("A geladeira está desligada, não é possível mudar os dados!\n")
                 else:
                     change_temperature(float(data))
-                    threading.Thread(target=send_udp, args=[data]).start()
                     send_tcp("CONFIRMAÇÃO: TEMPERATURA ALTERADA\n")
 
             elif command == "4":
-                send_tcp(f"CONFIRMAÇÃO: TEMPERATURA ATUAL: {get_temperature()}\n")
+                threading.Thread(target=send_udp, args=[data]).start()
+                #send_tcp(f"CONFIRMAÇÃO: TEMPERATURA ATUAL: {get_temperature()}\n")
 
             elif command == "5":
                 send_tcp(str(frigde))
@@ -290,13 +301,11 @@ def receive_tcp():
                 close_program()
                 break
 
-            else:
-                print("Comando inválido.\n")
-
         except Exception as e:
             print(f"ERRO: não foi possível receber os dados via TCP: {e}\n")
+            time.sleep(2)
             break
 
 
 # chamando a função principal
-main()
+menu_frigde()
