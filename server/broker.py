@@ -3,6 +3,7 @@
 # importação de bibliotecas necessárias
 import threading
 import socket
+import time
 
 # dicionário para guardar os sockets dos dispositivos
 socketsDevice = {}
@@ -50,8 +51,14 @@ def device_connection():
 
             print(f"Dispositivos conectados: {socketsDevice}\n")
 
+            # enviando o ip do dispositivo para o código do dispositivo
+            message = f"{'-1'}:{str(device_address)}"
+            device.send(message.encode("utf-8"))
+
             # criando uma thread para receber os dados do device via UDP
             threading.Thread(target=receive_data_udp, args=[]).start()
+            # criando uma thread para receber os dados do device via TCP
+            threading.Thread(target=receive_data_tcp, args=[device, device_address]).start()
 
         except Exception as e:
             print(f"ERRO: não foi possível conectar com o dispositivo: {e}\n")
@@ -60,43 +67,51 @@ def device_connection():
 
 # função para receber os dados via UDP
 def receive_data_udp():
-    data, address = udp_server.recvfrom(2048)
-    print(f"CONFIRMAÇÃO: recebido {data.decode("utf-8")} de {address} via UDP.\n")
+    while True:
+        data, address = udp_server.recvfrom(2048)
+        print(f"CONFIRMAÇÃO: recebido {data.decode("utf-8")} de {address} via UDP.\n")
 
 
 # função para receber os dados via TCP
-def receive_data_tcp(device):
-    try:
-        data = device.recv(2048)
-        print(f"CONFIRMAÇÃO: recebido {data.decode('utf-8')} via TCP.\n")
+def receive_data_tcp(device, device_address):
+    while True:
+        try:
+            data = device.recv(2048)
 
-        if data.decode('utf-8') == "CLOSE":
-            allDevices.pop(device)
-            return "CONFIRMAÇÃO: dispositivo encerrado!"
-        return data.decode('utf-8')
+            # caso seja para encerrar a conexão entre o dispositivo e o broker
+            if data.decode('utf-8') == "CLOSE":
+                del socketsDevice[str(device_address)]
+                time.sleep(0.5)
+                device.close()
+                print(f"Conexão encerrada com o dispositivo {device_address}!\n")
+                break
 
-    except Exception as e:
-        print(f"ERRO: não foi possível receber dados via TCP: {e}\n")
-        return None
+        except Exception as e:
+            print(f"ERRO: não foi possível receber dados via TCP: {e}\n")
+            break
+
+
+# REVER ESSA PARTE
+# função para pegar os dados dos dispositivos via TCP
+def get_data_tcp():
+    for device in socketsDevice:
+        try:
+            message = f"{'4'}:{0}"
+            socketsDevice[device].send(message.encode("utf-8"))
+
+            #response = receive_data_tcp(socketsDevice[device])
+            #allDevices[device] = eval(response)
+
+        except Exception as e:
+            print(f"ERRO: não foi possível pegar os dados dos dispositivos: {e}\n")
+    return #allDevices
 
 
 # função para receber os comandos da API e enviar para os dispositivos
 def receive_command_api(device_address, command, data):
     # para obter todos os dispositivos e salvar em um dicionário
     if device_address == "0":
-        for device in socketsDevice:
-            try:
-                message = f"{'5'}:{data}"
-                socketsDevice[device].send(message.encode("utf-8"))
-
-                # transformar o response em um dicionário
-
-                response = receive_data_tcp(socketsDevice[device])
-                allDevices[device] = eval(response)
-
-            except Exception as e:
-                print(f"ERRO: não foi possível enviar o comando para a api: {e}\n")
-        return allDevices
+        get_data_tcp()
 
     # para obter um dispositivo específico
     else:
@@ -106,8 +121,8 @@ def receive_command_api(device_address, command, data):
                 socketsDevice[device_address].send(message.encode("utf-8"))
                 print(f"CONFIRMAÇÃO: comando enviado para o dispositivo: {message}\n")
 
-                response = receive_data_tcp(socketsDevice[device_address])
-                return response
+                #response = receive_data_tcp(socketsDevice[device_address])
+                #return response
 
             except Exception as e:
                 print(f"ERRO: não foi possível enviar o comando para o dispositivo: {e}\n")
