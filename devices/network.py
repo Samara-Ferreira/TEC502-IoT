@@ -10,7 +10,8 @@ from devices.fridge import Fridge
 # classes e métodos para a conexão e comunicação
 class Network:
     # atributo para guardar os sockets dos dispositivos
-    def __init__(self, host="localhost", tcp_port=5001, udp_port=5002):
+    # docker: o ip do conteiner n vai (ip da maquina ou o localhost)
+    def __init__(self, host="172.22.208.1", tcp_port=5551, udp_port=5552):
         self.tcp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.udp_server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.host = host
@@ -25,10 +26,14 @@ class Network:
             print(">> Dispositivo já está conectado ao servidor broker!\n")
         else:
             try:
+                print("tentando....")
                 self.tcp_server.connect((self.host, self.tcp_port))
                 threading.Thread(target=self.receive_tcp, args=[]).start()
                 self.connected = True
                 print(">> Conexão com o servidor broker estabelecida com sucesso!\n")
+
+                #print("ip ", socket.gethostbyname(socket.gethostname()))
+
             except Exception as e:
                 return print(f"ERRO: não foi possível conectar com o servidor broker: {e}\n")
 
