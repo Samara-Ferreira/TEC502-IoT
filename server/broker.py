@@ -17,9 +17,9 @@ data_devices = ["", ""]
 all_devices = {}
 
 # variáveis globais
-HOST = "localhost"
-TCP_PORT = 5001
-UDP_PORT = 5002
+HOST = str(socket.gethostbyname(socket.gethostname()))
+TCP_PORT = 5551
+UDP_PORT = 5552
 
 # sockets para comunicação com os dispositivos
 tcp_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # TCP
@@ -29,6 +29,8 @@ udp_server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)   # UDP
 # função principal
 def main():
     try:
+        print(HOST, type(HOST))
+
         # conexão dos sockets à mesma porta
         tcp_server.bind((HOST, TCP_PORT))
         # UMA ÚNICA CONEXÃO??
