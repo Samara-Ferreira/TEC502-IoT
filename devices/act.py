@@ -42,7 +42,7 @@ class Actuator:
             print(("+" + "-" * self.length_print + "+").center(self.length_print2))
             print(("|" + " MENU DA GELADEIRA".center(self.length_print) + "|").center(self.length_print2))
             print(("+" + "-" * self.length_print + "+").center(self.length_print2))
-            print(("|" + " [1] Ligar a geladeira".ljust(self.length_print) + "|"))
+            print(("|" + " [1] Ligar a geladeira".ljust(self.length_print) + "|").center(self.length_print2))
             print(("|" + " [2] Desligar a geladeira".ljust(self.length_print) + "|").center(self.length_print2))
             print(("|" + " [3] Mudar a temperatura da geladeira".ljust(self.length_print) + "|").center(self.length_print2))
             print(("|" + " [4] Gerar valores randomicos para a temperatura".ljust(self.length_print) + "|").center(self.length_print2))
