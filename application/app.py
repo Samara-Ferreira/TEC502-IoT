@@ -5,8 +5,8 @@ import requests
 """ a opção de visualizar os dados está com o comando -2 """
 
 # variáveis globais
-IP_API = "localhost"
-PORT_API = 5000
+IP_API = "0.0.0.0"
+PORT_API = 5555
 
 # variáveis globais para os prints
 len_print1 = 50
