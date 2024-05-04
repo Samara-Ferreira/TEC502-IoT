@@ -1,82 +1,155 @@
-""" Módulo com as funções específicas para a geladeira """
+# arquivo responsável por manter o estado e as operações da geladeira
 
-# código orientado a classe e objetos
+import random
+
+from time import sleep
+
+# estado da geladeira: adiciono umidade??
+fridge = {
+    "ip": 0,
+    "ip_broker": 0,
+    "id": 0,
+    "temperature": 0.0,
+    "category": "atuador",
+    "items": {},
+    "status": "desligada",
+    "connection": "desconectada",
+    "udp_thread": False,
+    "random_thread": False
+}
+
+length_print = 50
 
 
-# classe para a geladeira
-class Fridge:
-    # atributo para guardar os dados da geladeira
-    def __init__(self, data=0.0, status=False, udp_thread=False, random_thread=False):
-        self.ip = None
-        self.id = None
-        self.data = data
-        self.status = status
-        self.udp_thread = udp_thread
-        self.random_thread = random_thread
-        self.items = {}
+def set_fridge_ip(ip):
+    fridge["ip"] = ip
 
-    # método para setar o ip da geladeira
-    def set_ip(self, ip):
-        self.ip = ip
 
-    # método para setar o id da geladeira
-    def set_id(self, id):
-        self.id = id
+def set_fridge_broker_ip(ip_broker):
+    fridge["ip_broker"] = ip_broker
 
-    # método para ligar a geladeira
-    def turn_on(self):
-        # verificar se a geladeira já está ligada
-        if self.status:
-            return ">> A geladeira já está ligada!\n"
-        else:
-            self.status = True
-            return ">> Confirmação: geladeira ligada!\n"
 
-    # método para desligar a geladeira
-    def turn_off(self):
-        # verificar se a geladeira já está desligada
-        if not self.status:
-            return ">> A geladeira já está desligada!\n"
-        else:
-            self.status = False
-            self.udp_thread = False
-            self.random_thread = False
-            return ">> Confirmação: geladeira desligada!\n"
+def set_fridge_id(id):
+    fridge["id"] = id
 
-    # método para mudar a temperatura da geladeira
-    def change_data(self, new_data):
-        self.data = new_data
-        return ">> Confirmação: temperatura da geladeira alterada!\n"
 
-    # método para adicionar itens na geladeira
-    def add_item(self, item, quantity):
-        # verificar se o item já está na geladeira
-        if item in self.items:
-            self.items[item] += quantity
-        else:
-            self.items[item] = quantity
-        return ">> Confirmação: item adicionado na geladeira!\n"
+def set_fridge_connection_status(status):
+    fridge["connection"] = status
 
-    # método para remover itens da geladeira
-    def remove_item(self, item, quantity):
-        # verificar se o item está na geladeira
-        if item not in self.items:
-            return ">> Erro: item não encontrado na geladeira!\n"
-        # verificar se a quantidade do item é maior que a quantidade que deseja remover
-        if self.items[item] >= quantity:
-            self.items[item] -= quantity
-        else:
-            return ">> Erro: quantidade do item menor que a quantidade que deseja remover!\n"
-        return ">> Confirmação: item removido da geladeira!\n"
 
-    # método para retornar os dados da geladeira
-    def return_data(self):
-        return f"Temperatura: {self.data}ºC\nStatus: {'Ligada' if self.status else 'Desligada'}\n"
+def set_udp_thread_status(status):
+    fridge["udp_thread"] = status
 
-    # método para retornar a temperatura
-    def get_data(self):
-        return self.data
 
-    # método para retornar os itens da geladeira
-    def get_items(self):
-        return self.items
+def set_random_thread_status(status):
+    fridge["random_thread"] = status
+
+
+def get_fridge_connection_status():
+    return fridge["connection"]
+
+
+def get_udp_thread_status():
+    return fridge["udp_thread"]
+
+
+def get_fridge_status():
+    return fridge["status"]
+
+
+def get_fridge_items():
+    return fridge["items"]
+
+
+def get_udp_thread_status():
+    return fridge["udp_thread"]
+
+
+def get_random_thread_status():
+    return fridge["random_thread"]
+
+# --------- funções get para quando for solicitada pela aplicação --------- #
+
+
+def get_fridge_data():
+    return fridge
+
+
+def get_fridge_status():
+    return fridge["status"]
+
+
+def get_fridge_ip_broker():
+    return fridge["ip_broker"]
+
+
+def get_fridge_temperature():
+    return fridge["temperature"]
+
+
+# ---------  ---------   ---------   ---------#
+
+def random_temperature():
+    if fridge["status"] == "desligada":
+        return "\tErro: não é possível modificar a temperatura, pois a geladeira está desligada!\n"
+    else:
+        while fridge["status"] == "ligada" and fridge["random_thread"] is True:
+            change_temperature(round(random.uniform(-18, 4), 2))
+            sleep(3)
+
+
+def turn_on_fridge():
+    fridge["status"] = "ligada"
+
+
+def turn_off_fridge():
+    fridge["status"] = "desligada"
+    fridge["temperature"] = 0.0
+    fridge["items"] = {}
+    fridge["random_thread"] = False
+    fridge["udp_thread"] = False
+
+
+def get_temperature():
+    return fridge["temperature"]
+
+
+def change_temperature(new_temperature):
+    fridge["temperature"] = new_temperature
+
+
+def add_item(item, quantity):
+    if item in fridge["items"]:
+        fridge["items"][item] += quantity
+        return "\tConfirmação: item encontrado e quantidade atualizada!\n"
+    else:
+        fridge["items"][item] = quantity
+        return "\tConfirmação: item adicionado!\n"
+
+
+def remove_item(item, quantity):
+    if item not in fridge["items"]:
+        return "\tErro: item não encontrado!\n"
+    elif fridge["items"][item] < quantity:
+        return "\tErro: quantidade insuficiente!\n"
+    else:
+        fridge["items"][item] -= quantity
+        if fridge["items"][item] == 0:
+            del fridge["items"][item]
+        return "\tConfirmação: item removido!\n"
+
+
+# função para visualizar os dados da geladeira
+def view_data():
+    print("\n\t+" + "-" * length_print + "+")
+    print("\t| " + " DADOS DA GELADEIRA".center(length_print) + "|")
+    print("\t+" + "-" * length_print + "+")
+    print("\t| " + f"IP: {fridge['ip']}".ljust(length_print) + "|")
+    print("\t| " + f"IP Broker: {fridge['ip_broker']}".ljust(length_print) + "|")
+    print("\t| " + f"ID: {fridge['id']}".ljust(length_print) + "|")
+    print("\t| " + f"Temperatura: {fridge['temperature']}ºC".ljust(length_print) + "|")
+    print("\t| " + f"Status: {fridge['status']}".ljust(length_print) + "|")
+    print("\t| " + f"Categoria: {fridge['category']}".ljust(length_print) + "|")
+    print("\t| " + f"Conexão: {fridge['connection']}".ljust(length_print) + "|")
+    print("\t| " + f"Itens: {fridge['items']}".ljust(length_print) + "|")
+    print("\t+" + "-" * length_print + "+\n")
