@@ -14,4 +14,4 @@ RUN pip install requests
 EXPOSE 5555
 
 # executa a aplicação
-CMD ["python", "app.py"]
+CMD ["python", "main.py"]
