@@ -1,7 +1,7 @@
 <div align="center">
 
-# 🖥️ 
-# Internet das Coisas (IoT, do inglês Internet of Things)
+<h1> 🖥️ </h1>
+<h1> Internet das Coisas (IoT, do inglês Internet of Things) </h1>
 </div>
 
 <div align="justify">
@@ -20,9 +20,7 @@ Computação da Universidade Estadual de Feira de Santana (UEFS).
 </div>
 
 
-<div id="#descricao">
-
-<h2> Descrição do Projeto </h2>
+<h2> id="descricao" Descrição do Projeto </h2>
 
 <div align="justify">
 
@@ -42,7 +40,7 @@ dispositivos.
 
 </div>
 
-## Arquitetura de Solução 
+<h2> Arquitetura de Solução </h2>
 
 <div align="justify">
 
@@ -52,7 +50,7 @@ respostas para a aplicação, por meio de um intermediário, que é o servidor b
 por três módulos principais: 'application', 'device' e 'server'. Cada um desses módulos é responsável por uma parte 
 da comunicação. A seguir, são apresentadas as funcionalidades de cada um dos módulos.
 
-### Módulo "Application"
+<h3> Módulo "Application" </h3>
 
 O módulo 'application' é responsável por enviar comandos para os dispositivos e receber as respostas dos dispositivos,
 ou seja, tratam da lógica do cliente da aplicação. Para isso, a aplicação é composta por uma interface CLI 
@@ -80,7 +78,7 @@ exibir o menu de opções da aplicação e permitir ao usuário enviar comandos 
 os dispositivos conectados. Por fim, o arquivo `api.py` contem as funções relacionadas à comunicação com a API do
 servidor broker (REST). 
 
-### Módulo "Device"
+<h3> Módulo "Device" </h3>
 
 O módulo 'device' é responsável por lidar com as operações e funcionalidades do dispositivo. O dispositivo é capaz 
 de receber comandos da aplicação, de forma remota, processá-los e enviar respostas para a aplicação, por meio do 
@@ -100,7 +98,7 @@ solicitação ao usuário do IP do servidor, e então chama a função menu_frid
 dispositivo;
 
 
-### Módulo "Server"
+<h3> Módulo "Server" </h3>
 
 O módulo 'server' é responsável por intermediar a comunicação entre a aplicação e os dispositivos. O servidor broker
 é responsável por receber as mensagens da aplicação, encaminhá-las para os dispositivos, receber as respostas dos
@@ -116,10 +114,9 @@ comunicação entre a aplicação e os dispositivos;
 de mensagens, e a manutenção das conexões ativas;
 
 </div>
-</div>
 
 
-## Protocolos de Comunicação 
+<h2 id="protocolos-de-comunicacao"> Protocolos de Comunicação </h2>
 
 Os protocolos de comunicação são usados para permitir a comunicação entre os dispositivos e a aplicação, e entre os 
 dispositivos e o servidor broker. Eles permitem que os componentes sendo executados em diferentes máquinas possam
@@ -136,7 +133,7 @@ o UDP (User Datagram Protocol). O TCP é um protocolo de comunicação orientado
 dados na ordem correta e sem perdas. Já o UDP é um protocolo de comunicação não orientado à conexão, que não garante
 a entrega dos dados na ordem correta e pode haver perdas.
 
-### Camada de Aplicação
+<h3> Camada de Aplicação </h3>
 
 Na arquitetura TCP/IP, a usada entre o servidor broker e os dispositivos, a camada de aplicação é a camada mais
 alta da pilha de protocolos. Ela é responsável por definir a sintaxe e a semântica das mensagens trocadas, bem como
@@ -148,7 +145,7 @@ para o dispositivo, e este responde com uma string contendo seus dados atuais, c
 desligado, entre outros.
 
 
-### Camada de Transporte
+<h3> Camada de Transporte </h3>
 
 Na arquitetura TCP/IP, a camada de transporte é responsável por fornecer comunicação fim-a-fim entre as aplicações.
 Ela é responsável por dividir os dados em segmentos, que são enviados pela rede, e por garantir a entrega dos dados
@@ -166,7 +163,7 @@ No projeto, o UDP é usado para enviar os dados de temperatura do dispositivo ao
 de forma contínua, a perda de alguns desses pacotes não é crítica para a aplicação e, portanto, o UDP é uma escolha
 adequada para esse tipo de comunicação.
 
-## Interface de Aplicação (REST)
+<h2> id="interface-de-aplicacao"> Interface de Aplicação (REST) </h2>
 
 A interface de aplicação do projeto foi desenvolvida utilizando o protocolo REST (Representational State Transfer),
 que é um estilo de arquitetura de software que define um conjunto de restrições para a criação de serviços web. 
@@ -197,22 +194,21 @@ uma das rotas da API REST do projeto apresentadas, usando o Insomnia:
 
 ...
 
-## Transmissão dos Dados 
+<h2> id="transmissao-dos-dados"> Transmissão dos Dados </h2>
 
-## Conexões Simultâneas 
+<h2> id="conexoes-simultaneas"> Conexões Simultâneas </h2>
 
-## Dispositivo 
+<h2> id="dispositivo"> Dispositivo </h2>
 
-## Desempenho 
+<h2> id="desempenho"> Desempenho </h2>
 
-## Confiabilidade 
+<h2> id="confiabilidade"> Confiabilidade </h2>
 
-## Documentação do Código 
+<h2> id="documentacao-do-codigo"> Documentação do Código </h2>
 
-## Docker 
+<h2> id="docker"> Docker </h2>
 
-<div id="#execucao-do-projeto">
-<h2> Execução do Projeto </h2>
+<h2> id="execucao-do-projeto" Execução do Projeto </h2>
 
 <div align="justify">
 
@@ -220,7 +216,7 @@ O projeto pode ser executado com ou sem a utilização do _Docker_. A execução
 pois não é necessário instalar as dependências do projeto na máquina. Por outro lado, requer que o usuário
 tenha o _Docker_ instalado na sua máquina. 
 
-### Download do Projeto
+<h3> Obtenção do Repositório </h3>
 
 Para a execução do projeto, caso possua o _Git_ instalado na sua máquina, deve-se clonar o repositório através 
 desse [link](https://github.com/Samara-Ferreira/PBL-Redes.git). Após clonar o repositório, basta acessar os diretórios
@@ -238,11 +234,11 @@ um dos módulos.
 
 A seguir, são apresentadas as instruções para a execução do projeto com e sem o Docker.
 
-### Execução sem o Docker 
+<h3> Execução sem o Docker </h3>
 
 A seguir são apresentadas as instruções para a execução do projeto com e sem a utilização do _Docker_.
 
-#### **Pré-requisitos** 
+<h4> **Pré-requisitos** </h4>
 
 Para a execução do projeto sem o _Docker_, é necessário ter instalados na máquina as seguintes ferramentas:
 - Python 3.8 ou superior;
@@ -250,7 +246,7 @@ Para a execução do projeto sem o _Docker_, é necessário ter instalados na m�
 - Bibliotecas do Python, como a _Flask_ e a _requests_, listadas no arquivo `requirements.txt` dos módulos ``application`` 
 e ``server``;
 
-#### **Instalação das Dependências**
+<h4> **Instalação das Dependências** </h4>
 
 Para instalar as dependências do projeto, acesse o diretório de cada um dos módulos do projeto e execute o seguinte
 comando:
@@ -263,7 +259,7 @@ comando:
 
 ```pip install requests```
 
-#### **Execução dos Módulos**
+<h4> **Execução dos Módulos** </h4>
 
 Para a execução dos módulos, é necessário navegar por cada um dos diretórios e executar o arquivo
 `main.py` de cada um deles, sendo:
@@ -284,7 +280,7 @@ servidor, pois é necessário que o usuário insira esse endereço de forma manu
 ![init_app](images/init_app.png)
 
 
-### Execução com o Docker
+<h3> **Execução com o Docker** </h3>
 
 Para a execução do projeto com o _Docker_, é necessário acessar o diretório de cada um dos componentes do projeto 
 e executar o seguinte comando:
@@ -314,11 +310,10 @@ mente, a execução do container para o módulos módulos são:
 
 
 </div>
-</div>
 
-# Conclusão 
+<h2> Conclusão </h2>
 
-# Referências
+<h2> Referências </h2>
 
 https://www.gta.ufrj.br/ensino/eel878/redes1-2019-1/vf/mqtt/ 
 
