@@ -235,11 +235,17 @@ Para a execução do projeto, caso possua o _Git_ instalado na sua máquina, dev
 desse [link](https://github.com/Samara-Ferreira/PBL-Redes.git). Após clonar o repositório, basta acessar os diretórios
 de cada um dos componentes do projeto com os comandos, em terminais diferentes:
 
-```cd application```
+```
+cd application
+```
 
-```cd device```
+```
+cd device
+```
 
-```cd server```
+```
+cd server
+```
 
 Caso não tenha o _Git_ instalado na sua máquina, é possível baixar o projeto em formato _zip_ e 
 descompactá-lo. Em seguida, segue-se os mesmos passos descritos acima para o acesso aos diretórios de  cada 
@@ -264,13 +270,19 @@ e ``server``;
 Para instalar as dependências do projeto, acesse o diretório de cada um dos módulos do projeto e execute o seguinte
 comando:
 
-```pip install -r requirements.txt```
+```
+pip install -r requirements.txt
+```
  
 É possível também a instalação das dependências manualmente, através dos comandos no terminal:
 
-```pip install Flask```
+```
+pip install Flask
+```
 
-```pip install requests```
+```
+pip install requests
+```
 
 <h4> **Execução dos Módulos** </h4>
 
@@ -298,28 +310,47 @@ servidor, pois é necessário que o usuário insira esse endereço de forma manu
 Para a execução do projeto com o _Docker_, é necessário acessar o diretório de cada um dos componentes do projeto 
 e executar o seguinte comando:
 
-```docker build -t <nome_da_imagem> .```
+```
+docker build -t <nome_da_imagem> .
+```
 
 No qual `<nome_da_imagem>` é o nome que será dado à imagem do módulo. Para os módulos _"application"_, _"device"_ e 
 _"server"_, tende-se os seguintes comandos:
 
-```docker build -t application .```
+```
+docker build -t application .
+```
     
-```docker build -t device .```
+```
+docker build -t device .
+```
     
-```docker build -t server .```
+```
+docker build -t server .
+```
 
 Após a execução do comando, a imagem do módulo será criada. Em seguida, execute o seguinte comando para a execução
 do container:
 
-```docker run -p port:port -iti <nome_da_imagem>```
+```
+docker run -p port:port -iti <nome_da_imagem>
+```
 
 No qual _"port"_ é a porta que será utilizada para a comunicação entre o container e a máquina host. Tendo isso em 
 mente, a execução do container para o módulos módulos são:
 
-- Para _"application"_, tem-se: ```docker run -p 5555:5555 -iti application```
-- Para _"device"_, tem-se: ```docker run -p 5551:5551 -p 5552:5552/udp -iti device```
-- Para _"server"_, tem-se: ```docker run -p 5555:5555 -p 5551:5551 -p 5552:5552/udp -iti server```
+- Para _"application"_, tem-se: 
+```
+docker run -p 5555:5555 -iti application
+```
+- Para _"device"_, tem-se: 
+```
+docker run -p 5551:5551 -p 5552:5552/udp -iti device
+```
+- Para _"server"_, tem-se:
+```
+docker run -p 5555:5555 -p 5551:5551 -p 5552:5552/udp -iti server
+```
 
 
 </div>
