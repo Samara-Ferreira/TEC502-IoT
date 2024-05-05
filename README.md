@@ -11,8 +11,7 @@ Computação da Universidade Estadual de Feira de Santana (UEFS).
 
 </div>
 
-## Sumário 
-
+<h2> Sumário </h2>
 <div id="sumario">
 	<ul>
         <li><a href="#descricao"> Descrição do Projeto</a></li>
@@ -23,7 +22,7 @@ Computação da Universidade Estadual de Feira de Santana (UEFS).
 
 <div id="#descricao">
 
-## Descrição do Projeto
+<h2> Descrição do Projeto </h2>
 
 <div align="justify">
 
@@ -213,8 +212,7 @@ uma das rotas da API REST do projeto apresentadas, usando o Insomnia:
 ## Docker 
 
 <div id="#execucao-do-projeto">
-
-## Execução do Projeto
+<h2> Execução do Projeto </h2>
 
 <div align="justify">
 
