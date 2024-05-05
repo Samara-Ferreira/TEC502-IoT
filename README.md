@@ -39,7 +39,7 @@ servidor broker.
 A imagem abaixo ilustra a infraestrutura da comunicação entre a aplicação, o servidor broker e os dispositivos:
 
 <p align="center">
-    <img src="images/communication_broker.png" alt="Infraestrutura das comunicações do projeto" width="600">
+    <img src="images/communication_broker.png" alt="Infraestrutura das comunicações do projeto" width="800">
 </p>
 
 </div>
