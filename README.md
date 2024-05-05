@@ -20,7 +20,9 @@ Computação da Universidade Estadual de Feira de Santana (UEFS).
 </div>
 
 
-<h2> id="descricao" Descrição do Projeto </h2>
+<div id="descricao">
+    <h2> Descrição do Projeto </h2>
+</div>
 
 <div align="justify">
 
@@ -116,7 +118,9 @@ de mensagens, e a manutenção das conexões ativas;
 </div>
 
 
-<h2 id="protocolos-de-comunicacao"> Protocolos de Comunicação </h2>
+<div id="#protocolos-de-comunicacao">
+    <h2> Protocolos de Comunicação </h2>
+</div>
 
 Os protocolos de comunicação são usados para permitir a comunicação entre os dispositivos e a aplicação, e entre os 
 dispositivos e o servidor broker. Eles permitem que os componentes sendo executados em diferentes máquinas possam
@@ -163,7 +167,10 @@ No projeto, o UDP é usado para enviar os dados de temperatura do dispositivo ao
 de forma contínua, a perda de alguns desses pacotes não é crítica para a aplicação e, portanto, o UDP é uma escolha
 adequada para esse tipo de comunicação.
 
-<h2> id="interface-de-aplicacao"> Interface de Aplicação (REST) </h2>
+
+<div id="#interface-de-aplicacao">
+    <h2> Interface de Aplicação (REST) </h2>
+</div>
 
 A interface de aplicação do projeto foi desenvolvida utilizando o protocolo REST (Representational State Transfer),
 que é um estilo de arquitetura de software que define um conjunto de restrições para a criação de serviços web. 
@@ -194,7 +201,8 @@ uma das rotas da API REST do projeto apresentadas, usando o Insomnia:
 
 ...
 
-<h2> id="transmissao-dos-dados"> Transmissão dos Dados </h2>
+
+<!--<h2> id="transmissao-dos-dados"> Transmissão dos Dados </h2>
 
 <h2> id="conexoes-simultaneas"> Conexões Simultâneas </h2>
 
@@ -206,9 +214,11 @@ uma das rotas da API REST do projeto apresentadas, usando o Insomnia:
 
 <h2> id="documentacao-do-codigo"> Documentação do Código </h2>
 
-<h2> id="docker"> Docker </h2>
+<h2> id="docker"> Docker </h2>-->
 
-<h2> id="execucao-do-projeto" Execução do Projeto </h2>
+<div id="execucao-do-projeto">
+    <h2> Execução do Projeto </h2>
+</div>
 
 <div align="justify">
 
@@ -238,7 +248,7 @@ A seguir, são apresentadas as instruções para a execução do projeto com e s
 
 A seguir são apresentadas as instruções para a execução do projeto com e sem a utilização do _Docker_.
 
-<h4> **Pré-requisitos** </h4>
+<h4> Pré-requisitos </h4>
 
 Para a execução do projeto sem o _Docker_, é necessário ter instalados na máquina as seguintes ferramentas:
 - Python 3.8 ou superior;
@@ -280,7 +290,7 @@ servidor, pois é necessário que o usuário insira esse endereço de forma manu
 ![init_app](images/init_app.png)
 
 
-<h3> **Execução com o Docker** </h3>
+<h3> Execução com o Docker </h3>
 
 Para a execução do projeto com o _Docker_, é necessário acessar o diretório de cada um dos componentes do projeto 
 e executar o seguinte comando:
