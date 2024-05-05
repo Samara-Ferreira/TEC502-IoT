@@ -1,12 +1,45 @@
-# Descrição do Projeto
+<div align="center">
 
-# Arquitetura de Solução 
+# 🖥️ 
+# Internet das Coisas (IoT, do inglês Internet of Things)
+</div>
+
+<div align="justify">
+
+> Este projeto foi desenvolvido como parte da disciplina MI - Concorrência e Conectividade, do curso de Engenharia de
+Computação da Universidade Estadual de Feira de Santana (UEFS).
+
+</div>
+
+## Descrição do Projeto
+
+<div align="justify">
+
+Este projeto consiste em um sistema de controle de dispositivos IoT (Internet das Coisas) por meio de uma aplicação, 
+que envia comandos para os dispositivos, e um servidor broker, que intermedia a comunicação entre a aplicação e os
+dispositivos. O projeto é composto por três componentes principais: a aplicação, o dispositivo e o servidor broker.
+
+O servidor broker é responsável por intermediar a comunicação entre a aplicação e os dispositivos. Ele recebe as 
+mensagens da aplicação, faz um filtro dos dispositivos que devem receber a mensagem e encaminha a mensagem. Além disso,
+o servidor broker recebe as respostas dos dispositivos e encaminha para a aplicação. Assim, a aplicação e os 
+dispositivos não precisam se comunicar ou saber da existência um do outro, pois toda a comunicação é intermediada pelo
+servidor broker. 
+
+O projeto consiste em um sistema de controle de dispositivos IoT (Internet das Coisas) por meio de uma aplicação, que
+envia comandos para os dispositivos, e um servidor broker, que intermedia a comunicação entre a aplicação e os
+dispositivos.
+
+</div>
+
+## Arquitetura de Solução 
+
+<div align="justify">
 
 A arquitetura do projetpo foi desenvolvida no intuito de permitir a comunicação entre dispositivos, aplicação e um 
 servidor broker. Dessa forma, é possível que a aplicação envie comandos para os dispositivos, que por sua vez, enviam
-respostas para a aplicação, por meio de um intermediário, o servidor broker. A arquitetura do projeto é composta por
-três módulos principais: 'application', 'device' e 'server'. Cada um desses módulos é responsável por uma parte da
-comunicação. A seguir, são apresentadas as funcionalidades de cada um dos módulos.
+respostas para a aplicação, por meio de um intermediário, que é o servidor broker. A arquitetura do projeto é composta 
+por três módulos principais: 'application', 'device' e 'server'. Cada um desses módulos é responsável por uma parte 
+da comunicação. A seguir, são apresentadas as funcionalidades de cada um dos módulos.
 
 ### Módulo 'Application'
 
@@ -71,14 +104,57 @@ comunicação entre a aplicação e os dispositivos;
 - `server/broker_connections.py`: este arquivo lida com as conexões dos dispositivos, incluindo o envio e o recebimento
 de mensagens, e a manutenção das conexões ativas;
 
+</div>
 
-# Protocolos de Comunicação 
 
-## Camada de Aplicação 
+## Protocolos de Comunicação 
 
-## Camada de Transporte 
+Os protocolos de comunicação são usados para permitir a comunicação entre os dispositivos e a aplicação, e entre os 
+dispositivos e o servidor broker. Eles permitem que os componentes sendo executados em diferentes máquinas possam
+comunicar-se entre si.
 
-# Interface de Aplicação (REST)
+O protocolo de comunicação utilizado para a comunicação entre a aplicação e o servidor broker é o HTTP (Hypertext
+Transfer Protocol), que é um protocolo de comunicação utilizado para a transferência de dados na World Wide Web. O
+HTTP é um protocolo de comunicação stateless, o que significa que ele não mantém informações sobre as conexões entre
+as requisições. 
+
+Os protocolos de comunicação entre os dispositivos e o servidor broker são baseados em mensagens de texto simples.
+Essas mensagens são codificadas em strings e enviadas através de conexões TCP/IP (Transmission Control Protocol) e 
+o UDP (User Datagram Protocol). O TCP é um protocolo de comunicação orientado à conexão, que garante a entrega dos
+dados na ordem correta e sem perdas. Já o UDP é um protocolo de comunicação não orientado à conexão, que não garante
+a entrega dos dados na ordem correta e pode haver perdas.
+
+### Camada de Aplicação
+
+Na arquitetura TCP/IP, a usada entre o servidor broker e os dispositivos, a camada de aplicação é a camada mais
+alta da pilha de protocolos. Ela é responsável por definir a sintaxe e a semântica das mensagens trocadas, bem como
+por fornecer serviços de comunicação para as aplicações. 
+
+A comunicação entre os dispositivos e o Broker é iniciada pelo próprio servidor broker, que envia um comando específico 
+ao dispositivo e este responde de acordo com o que é solicitado. Por exemplo, o servidor broker envia o comando "1"
+para o dispositivo, e este responde com uma string contendo seus dados atuais, como temperatura, se está ligado ou
+desligado, entre outros.
+
+
+### Camada de Transporte
+
+Na arquitetura TCP/IP, a camada de transporte é responsável por fornecer comunicação fim-a-fim entre as aplicações.
+Ela é responsável por dividir os dados em segmentos, que são enviados pela rede, e por garantir a entrega dos dados
+na ordem correta e sem perdas.
+
+No sistema, os protocolos de comunicação utilizados entre os dispositivos e o Broker são o TCP/IP e o UDP. 
+
+O protocolo TCP/IP é usado para estabelecer uma conexão confiável entre os dispositivos e o Broker. Ele garante a 
+entrega dos dados na ordem correta e sem perdas. O protocolo UDP é usado para estabelecer uma conexão não confiável. 
+No projeto, ele é usado para enviar os comandos do Broker ao dispositivo e para receber as respostas do dispositivo, 
+nos casos de confirmação, como quando o dispositivo é ligado ou desligado.
+
+O protocolo UDP, por outro lado, é usado para transmissões de dados que não requerem confirmação de recebimento.
+No projeto, o UDP é usado para enviar os dados de temperatura do dispositivo ao Broker. Como esses dados são enviados
+de forma contínua, a perda de alguns desses pacotes não é crítica para a aplicação e, portanto, o UDP é uma escolha
+adequada para esse tipo de comunicação.
+
+## Interface de Aplicação (REST)
 
 A interface de aplicação do projeto foi desenvolvida utilizando o protocolo REST (Representational State Transfer),
 que é um estilo de arquitetura de software que define um conjunto de restrições para a criação de serviços web. 
@@ -111,48 +187,57 @@ uma das rotas da API REST do projeto apresentadas, usando o Insomnia:
 
 
 
+## Transmissão dos Dados 
 
-# Transmissão dos Dados 
+## Conexões Simultâneas 
 
-# Conexões Simultâneas 
+## Dispositivo 
 
-# Dispositivo 
+## Desempenho 
 
-# Desempenho 
+## Confiabilidade 
 
-# Confiabilidade 
+## Documentação do Código 
 
-# Documentação do Código 
+## Docker 
 
-# Docker 
+## Execução do Projeto
 
-# Execução do Projeto
+<div align="justify">
 
-O projeto pode ser executado de duas formas: com o Docker ou sem o Docker. A execução com o Docker é mais simples, 
-pois não é necessário instalar as dependências do projeto na máquina. Já a execução sem o Docker requer a instalação 
-das dependências do projeto na máquina. Entretando, a execução com o Docker requer que o Docker esteja instalado na
-máquina.
+O projeto pode ser executado com ou sem a utilização do _Docker_. A execução com o Docker é mais simples, 
+pois não é necessário instalar as dependências do projeto na máquina. Por outro lado, requer que o usuário
+tenha o _Docker_ instalado na sua máquina. 
 
-Para a execução do projeto, caso tenha o Git instalado em sua máquina, é necessário clonar o repositório através 
-do link <link> e acessar os diretórios de cada um dos módulos do projeto. 
+### Download do Projeto
 
-Caso não tenha o Git instalado em sua máquina, é possível baixar o projeto em formato zip através do link ```<link>```, e 
-descompactar o arquivo baixado. Em seguida, acesse os diretórios de cada um dos módulos do projeto.
+Para a execução do projeto, caso possua o _Git_ instalado na sua máquina, deve-se clonar o repositório através 
+desse [link](https://github.com/Samara-Ferreira/PBL-Redes.git). Após clonar o repositório, basta acessar os diretórios
+de cada um dos componentes do projeto com os comandos, em terminais diferentes:
 
-Para fins de organização, o projeto foi dividido em três módulos principais: 'application', 'device' e 'server'. Cada
-um desses módulos foram explicaods em detalhes na seção 'Arquitetura de Solução'. 
+```cd application```
+
+```cd device```
+
+```cd server```
+
+Caso não tenha o _Git_ instalado na sua máquina, é possível baixar o projeto em formato _zip_ e 
+descompactá-lo. Em seguida, segue-se os mesmos passos descritos acima para o acesso aos diretórios de  cada 
+um dos módulos.
 
 A seguir, são apresentadas as instruções para a execução do projeto com e sem o Docker.
 
 ### Execução sem o Docker 
 
+A seguir são apresentadas as instruções para a execução do projeto com e sem a utilização do _Docker_.
+
 ##### Pré-requisitos 
 
-Para a execução do projeto sem o Docker, é necessário ter instalados na máquina as seguintes ferramentas:
+Para a execução do projeto sem o _Docker_, é necessário ter instalados na máquina as seguintes ferramentas:
 - Python 3.8 ou superior;
 - Pip, para instalação das dependências do projeto;
-- Bibliotecas do Python, como a Flask e a requests, listadas no arquivo `requirements.txt` dos módulos 'application' 
-e 'server';
+- Bibliotecas do Python, como a _Flask_ e a _requests_, listadas no arquivo `requirements.txt` dos módulos ``application`` 
+e ``server``;
 
 ##### Instalação das Dependências
 
@@ -160,8 +245,8 @@ Para instalar as dependências do projeto, acesse o diretório de cada um dos m�
 comando:
 
 ```pip install -r requirements.txt```
-
-Ou pode instalar as dependências manualmente, através dos comandos:
+ 
+É possível também a instalação das dependências manualmente, através dos comandos no terminal:
 
 ```pip install Flask```
 
@@ -169,17 +254,17 @@ Ou pode instalar as dependências manualmente, através dos comandos:
 
 ##### Execução dos Módulos
 
-Para a execução dos módulos, é necessário navegar por cada um dos diretórios dos módulos e executar o arquivo
+Para a execução dos módulos, é necessário navegar por cada um dos diretórios e executar o arquivo
 `main.py` de cada um deles, sendo:
-- No módulo 'application', execute o comando `python main_app.py`;
-- No módulo 'device', execute o comando `python main_device.py`;
-- No módulo 'server', execute o comando `python main_api.py`.
+- No módulo ``application``, execute o comando: `python3 main_app.py`;
+- No módulo ``device``, execute o comando: `python3 main_device.py`;
+- No módulo ``server``, execute o :comando `python3 main_api.py`.
 
-Após a execução dos comandos, os módulos estarão em execução. Para a comunicação entre os módulos, é necessário que
-o usuário atente-se ao pedido do ip do broker, que é solicitado ao inicializar a aplicação e ao conectar um dispositivo
-ao servidor. Esse ip pode ser visualizado assim que o servidor é inicializado, como pode ser visualizado na imagem
-a seguir e é necessário que o usuário insira esse ip manualmente na aplicaçção e no dispositivo, para que a 
-comunicação entre eles seja estabelecida.
+Após a execução dos comandos, os componentes serão executados. Para a comunicação entre os módulos, é necessário que
+o usuário atente-se ao pedido do endereço do protocolo de _internet_ (_ip, internet protocol_) do servidor broker,
+solicitado ao inicializar a aplicação e os dispositivos. Esse endereço _ip_ pode ser visualizado assim que o servidor 
+é inicializado, como pode ser visualizado na imagem a seguir. Dessa forma, é recomendável a execução primeiramente do 
+servidor, pois é necessário que o usuário insira esse endereço de forma manual.
 
 ![init_broker](images/init_broker.png)
 
@@ -190,13 +275,13 @@ comunicação entre eles seja estabelecida.
 
 ### Execução com o Docker
 
-Para a execução do projeto com o Docker, é necessário que o Docker esteja instalado na máquina. Supondo que o Docker
-esteja instalado, acesse o diretório de cada um dos módulos do projeto e execute o seguinte comando:
+Para a execução do projeto com o _Docker_, é necessário acessar o diretório de cada um dos componentes do projeto 
+e executar o seguinte comando:
 
 ```docker build -t <nome_da_imagem> .```
 
-Onde `<nome_da_imagem>` é o nome que será dado à imagem do módulo. Para os módulos 'application', 'device' e 'server',
-tem-se os seguintes comandos:
+No qual `<nome_da_imagem>` é o nome que será dado à imagem do módulo. Para os módulos _"application"_, _"device"_ e 
+_"server"_, tende-se os seguintes comandos:
 
 ```docker build -t application .```
     
@@ -209,28 +294,22 @@ do container:
 
 ```docker run -p port:port -iti <nome_da_imagem>```
 
-Onde `port` é a porta que será utilizada para a comunicação entre o container e a máquina host. Tendo isso em 
-mente, a execução do container para o módulo 'application' é:
+No qual _"port"_ é a porta que será utilizada para a comunicação entre o container e a máquina host. Tendo isso em 
+mente, a execução do container para o módulos módulos são:
 
-```docker run -p 5555:5555 -iti application```
+- Para _"application"_, tem-se: ```docker run -p 5555:5555 -iti application```
+- Para _"device"_, tem-se: ```docker run -p 5551:5551 -p 5552:5552/udp -iti device```
+- Para _"server"_, tem-se: ```docker run -p 5555:5555 -p 5551:5551 -p 5552:5552/udp -iti server```
 
-Para o módulo 'device', é:
 
-```docker run -p 5551:5551 -p 5552:5552/udp -iti device```
-
-E para o módulo 'server', é:
-
-```docker run -p 5555:5555 -p 5551:5551 -p 5552:5552/udp -iti server```
-
-Após a execução dos comandos, os módulos estarão em execução. Para a comunicação entre os módulos, é necessário que
-o usuário atente-se ao pedido do ip do broker, que é solicitado ao inicializar a aplicação e ao conectar um dispositivo
-ao servidor. Esse ip pode ser visualizado assim que o servidor é inicializado, como pode ser visualizado na imagem 
-acima, que apresenta a execução do servidor. É necessário que o usuário insira esse ip manualmente na aplicação e no
-dispositivo, para que a comunicação entre eles seja estabelecida.
+</div>
 
 # Conclusão 
 
 # Referências
 
+https://www.gta.ufrj.br/ensino/eel878/redes1-2019-1/vf/mqtt/ 
+
+https://docente.ifrn.edu.br/filiperaulino/disciplinas/info4m/redes-de-computadores-e-aplicacoes/aulas/4_modeloArqTCP_IP.pdf
 
 
