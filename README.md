@@ -36,11 +36,14 @@ o servidor broker recebe as respostas dos dispositivos e encaminha para a aplica
 dispositivos não precisam se comunicar ou saber da existência um do outro, pois toda a comunicação é intermediada pelo
 servidor broker. 
 
-O projeto consiste em um sistema de controle de dispositivos IoT (Internet das Coisas) por meio de uma aplicação, que
-envia comandos para os dispositivos, e um servidor broker, que intermedia a comunicação entre a aplicação e os
-dispositivos.
+A imagem abaixo ilustra a infraestrutura da comunicação entre a aplicação, o servidor broker e os dispositivos:
+
+<p align="center">
+    <img src="images/communication_broker.png" alt="Infraestrutura das comunicações do projeto" width="600">
+</p>
 
 </div>
+
 
 <h2> Arquitetura de Solução </h2>
 
