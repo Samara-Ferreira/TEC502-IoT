@@ -229,7 +229,7 @@ A seguir, são apresentadas as instruções para a execução do projeto com e s
 
 A seguir são apresentadas as instruções para a execução do projeto com e sem a utilização do _Docker_.
 
-#### Pré-requisitos 
+#### **Pré-requisitos** 
 
 Para a execução do projeto sem o _Docker_, é necessário ter instalados na máquina as seguintes ferramentas:
 - Python 3.8 ou superior;
@@ -237,7 +237,7 @@ Para a execução do projeto sem o _Docker_, é necessário ter instalados na m�
 - Bibliotecas do Python, como a _Flask_ e a _requests_, listadas no arquivo `requirements.txt` dos módulos ``application`` 
 e ``server``;
 
-#### Instalação das Dependências
+#### **Instalação das Dependências**
 
 Para instalar as dependências do projeto, acesse o diretório de cada um dos módulos do projeto e execute o seguinte
 comando:
@@ -250,7 +250,7 @@ comando:
 
 ```pip install requests```
 
-#### Execução dos Módulos
+#### **Execução dos Módulos**
 
 Para a execução dos módulos, é necessário navegar por cada um dos diretórios e executar o arquivo
 `main.py` de cada um deles, sendo:
