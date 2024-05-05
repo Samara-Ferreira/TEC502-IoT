@@ -41,7 +41,7 @@ respostas para a aplicação, por meio de um intermediário, que é o servidor b
 por três módulos principais: 'application', 'device' e 'server'. Cada um desses módulos é responsável por uma parte 
 da comunicação. A seguir, são apresentadas as funcionalidades de cada um dos módulos.
 
-### Módulo 'Application'
+### Módulo "Application"
 
 O módulo 'application' é responsável por enviar comandos para os dispositivos e receber as respostas dos dispositivos,
 ou seja, tratam da lógica do cliente da aplicação. Para isso, a aplicação é composta por uma interface CLI 
@@ -69,7 +69,7 @@ exibir o menu de opções da aplicação e permitir ao usuário enviar comandos 
 os dispositivos conectados. Por fim, o arquivo `api.py` contem as funções relacionadas à comunicação com a API do
 servidor broker (REST). 
 
-### Módulo 'Device'
+### Módulo "Device"
 
 O módulo 'device' é responsável por lidar com as operações e funcionalidades do dispositivo. O dispositivo é capaz 
 de receber comandos da aplicação, de forma remota, processá-los e enviar respostas para a aplicação, por meio do 
@@ -89,7 +89,7 @@ solicitação ao usuário do IP do servidor, e então chama a função menu_frid
 dispositivo;
 
 
-### Módulo 'Server'
+### Módulo "Server"
 
 O módulo 'server' é responsável por intermediar a comunicação entre a aplicação e os dispositivos. O servidor broker
 é responsável por receber as mensagens da aplicação, encaminhá-las para os dispositivos, receber as respostas dos
@@ -185,8 +185,6 @@ uma das rotas da API REST do projeto apresentadas, usando o Insomnia:
 
 ...
 
-
-
 ## Transmissão dos Dados 
 
 ## Conexões Simultâneas 
@@ -231,7 +229,7 @@ A seguir, são apresentadas as instruções para a execução do projeto com e s
 
 A seguir são apresentadas as instruções para a execução do projeto com e sem a utilização do _Docker_.
 
-##### Pré-requisitos 
+#### Pré-requisitos 
 
 Para a execução do projeto sem o _Docker_, é necessário ter instalados na máquina as seguintes ferramentas:
 - Python 3.8 ou superior;
@@ -239,7 +237,7 @@ Para a execução do projeto sem o _Docker_, é necessário ter instalados na m�
 - Bibliotecas do Python, como a _Flask_ e a _requests_, listadas no arquivo `requirements.txt` dos módulos ``application`` 
 e ``server``;
 
-##### Instalação das Dependências
+#### Instalação das Dependências
 
 Para instalar as dependências do projeto, acesse o diretório de cada um dos módulos do projeto e execute o seguinte
 comando:
@@ -252,7 +250,7 @@ comando:
 
 ```pip install requests```
 
-##### Execução dos Módulos
+#### Execução dos Módulos
 
 Para a execução dos módulos, é necessário navegar por cada um dos diretórios e executar o arquivo
 `main.py` de cada um deles, sendo:
