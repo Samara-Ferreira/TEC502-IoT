@@ -13,11 +13,17 @@ Computação da Universidade Estadual de Feira de Santana (UEFS).
 
 ## Sumário 
 
-- [Descrição do Projeto](#descricao)
-- [Execução do Projeto](#execucao-do-projeto)
+<div id="sumario">
+	<ul>
+        <li><a href="#descricao"> Descrição do Projeto</a></li>
+        <li><a href="#execucao-do-projeto">Execução do Projeto</a></li>
+    </ul>
+</div>
 
 
-## [Descrição do Projeto ](#descricao)
+<div id="#descricao">
+
+## Descrição do Projeto
 
 <div align="justify">
 
@@ -110,6 +116,7 @@ comunicação entre a aplicação e os dispositivos;
 - `server/broker_connections.py`: este arquivo lida com as conexões dos dispositivos, incluindo o envio e o recebimento
 de mensagens, e a manutenção das conexões ativas;
 
+</div>
 </div>
 
 
@@ -205,7 +212,9 @@ uma das rotas da API REST do projeto apresentadas, usando o Insomnia:
 
 ## Docker 
 
-## [Execução do Projeto](#execucao-do-projeto)
+<div id="#execucao-do-projeto">
+
+## Execução do Projeto
 
 <div align="justify">
 
@@ -306,6 +315,7 @@ mente, a execução do container para o módulos módulos são:
 - Para _"server"_, tem-se: ```docker run -p 5555:5555 -p 5551:5551 -p 5552:5552/udp -iti server```
 
 
+</div>
 </div>
 
 # Conclusão 
