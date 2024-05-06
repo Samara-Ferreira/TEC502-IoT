@@ -7,6 +7,6 @@ COPY . .
 EXPOSE 5551
 EXPOSE 5552/udp
 
-CMD ["python", "menu_device.py"]
+CMD ["python", "main_device.py"]
 
 
