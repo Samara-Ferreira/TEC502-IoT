@@ -30,7 +30,7 @@ def menu_application(ip_api, port_api):
 
         # opção para selecionar um dispositivo
         if option == "1":
-            return_devices = get_all_devices(ip_api, port_api)
+            return_devices = get_all_devices(ip_api, port_api, True)
 
             if return_devices is not None:
                 dict_devices = eval(return_devices)
@@ -42,7 +42,7 @@ def menu_application(ip_api, port_api):
                 while device_id not in dict_devices or device_id == "":
                     if device_id == "0":
                         break
-                    get_all_devices(ip_api, port_api)
+                    get_all_devices(ip_api, port_api, True)
                     print("\n\tIP inválido! Digite novamente: ")
                     device_id = str(input("\t> "))
 
@@ -89,58 +89,41 @@ def menu_fridge(device_id, ip_api, port_api,  dict_devices):
             print("\n\tDigite a opção desejada: ")
             option = str(input("\t> "))
 
-            # opção para visualizar os dados da geladeira
-            if option == "1":
-                if dict_devices[device_id]["connection"] == "desconectada":
-                    print("\n\t> Dispositivo desconectado! Voltando ao menu da aplicação...")
-                    option = "0"
-                else:
+            # como atualizar o dicionário aqui?
+            dict_devices = eval(get_all_devices(ip_api, port_api, False))
+
+            if dict_devices[device_id]["connection"] == "desconectada":
+                print("\n\t> Dispositivo desconectado! Voltando ao menu da aplicação...")
+                option = "0"
+            else:
+                # opção para visualizar os dados da geladeira
+                if option == "1":
                     view_fridge_device(device_id, ip_api, port_api)
 
-            # opção para ligar a geladeira
-            elif option == "2":
-                if dict_devices[device_id]["connection"] == "desconectada":
-                    print("\n\t> Dispositivo desconectado! Voltando ao menu da aplicação...")
-                    option = "0"
-                else:
+                # opção para ligar a geladeira
+                elif option == "2":
                     confirm = turn_on_device(device_id, ip_api, port_api)
                     print(confirm)
 
-            # opção para desligar a geladeira
-            elif option == "3":
-                if dict_devices[device_id]["connection"] == "desconectada":
-                    print("\n\t> Dispositivo desconectado! Voltando ao menu da aplicação...")
-                    option = "0"
-                else:
+                # opção para desligar a geladeira
+                elif option == "3":
                     confirm = turn_off_device(device_id, ip_api, port_api)
                     print(confirm)
 
-            # opção para mudar a temperatura da geladeira
-            elif option == "4":
-                if dict_devices[device_id]["connection"] == "desconectada":
-                    print("\n\t> Dispositivo desconectado! Voltando ao menu da aplicação...")
-                    option = "0"
-                else:
+                # opção para mudar a temperatura da geladeira
+                elif option == "4":
                     print("\tDigite a nova temperatura: ")
                     new_data = float(input("\t> "))
                     confirm = change_data_device(device_id, new_data, ip_api, port_api)
                     print(confirm)
 
-            # opção para retornar a temperatura da geladeira
-            elif option == "5":
-                if dict_devices[device_id]["connection"] == "desconectada":
-                    print("\n\t> Dispositivo desconectado! Voltando ao menu da aplicação...")
-                    option = "0"
-                else:
+                # opção para retornar a temperatura da geladeira
+                elif option == "5":
                     confirm = receive_data_device(device_id, ip_api, port_api)
                     print(confirm)
 
-            # opção para adicionar itens a geladeira
-            elif option == "6":
-                if dict_devices[device_id]["connection"] == "desconectada":
-                    print("\n\t> Dispositivo desconectado! Voltando ao menu da aplicação...")
-                    option = "0"
-                else:
+                # opção para adicionar itens a geladeira
+                elif option == "6":
                     print("\tDigite o item que deseja adicionar: ")
                     item = str(input("\t> ")).lower()
                     print("\tDigite a quantidade do item: ")
@@ -150,12 +133,8 @@ def menu_fridge(device_id, ip_api, port_api,  dict_devices):
                     confirm = add_item_device(device_id, data, ip_api, port_api)
                     print(confirm)
 
-            # opção para remover itens da geladeira
-            elif option == "7":
-                if dict_devices[device_id]["connection"] == "desconectada":
-                    print("\n\t> Dispositivo desconectado! Voltando ao menu da aplicação...")
-                    option = "0"
-                else:
+                # opção para remover itens da geladeira
+                elif option == "7":
                     print("\tDigite o item que deseja remover: ")
                     item = str(input("\t> ")).lower()
                     print("\tDigite a quantidade do item: ")
@@ -165,19 +144,14 @@ def menu_fridge(device_id, ip_api, port_api,  dict_devices):
                     confirm = remove_item_device(device_id, data, ip_api, port_api)
                     print(confirm)
 
-            # opção para visualizar os itens da geladeira
-            elif option == "8":
-                if dict_devices[device_id]["connection"] == "desconectada":
-                    print("\n\t> Dispositivo desconectado! Voltando ao menu da aplicação...")
-                    option = "0"
-                else:
+                # opção para visualizar os itens da geladeira
+                elif option == "8":
                     confirm = view_items_device(device_id, ip_api, port_api)
                     print(confirm)
 
-            # opção para voltar ao menu da aplicação
-            elif option == "0":
-                print("\n\t> Voltando para o menu da aplicação...")
+                # opção para voltar ao menu da aplicação
+                elif option == "0":
+                    print("\n\t> Voltando para o menu da aplicação...")
 
-            else:
-                print("\n\tOpção inválida!Tente novamente.\n")
-
+                else:
+                    print("\n\tOpção inválida!Tente novamente.\n")
