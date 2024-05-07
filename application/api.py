@@ -1,12 +1,11 @@
-""" Módulo responsável por conter as funções que se comunicarão com a API RESTful """
+""" Este arquivo é responsável por conter as requisições que se comunicarão com a API RESTful, e retornar os dados
+nescessários para o funcionamento do sistema. """
 
-
-# importações
+# importação da biblioteca requests para realizar as requisições
 import requests
 
 
-# esse arquivo contem todas as funções relacionadas ao dispositivo
-# função get_all_devices
+# função get_all_devices, que retorna todos os dispositivos conectados
 def all_devices(ip_api, port_api):
     response = requests.get(f"http://{ip_api}:{port_api}/devices")
     return response.json()
