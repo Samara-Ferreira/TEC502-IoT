@@ -11,7 +11,7 @@ COPY . .
 RUN pip install requests
 
 # expõe a porta
-EXPOSE 5555
+EXPOSE 5575
 
 # executa a aplicação
 CMD ["python", "main_app.py"]
