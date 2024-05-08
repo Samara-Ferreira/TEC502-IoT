@@ -177,19 +177,19 @@ uma das rotas da API REST do projeto apresentadas:
   - Resposta: 
   ``` json
       {
-        '172.22.208.1': 
+        "172.22.208.1": 
           {
-            'ip': '172.22.208.2', 
-            'ip_broker': 
-            '172.22.208.1', 
-            'id': 'GEL01', 
-            'temperature': 0.0, 
-            'category': 'atuador', 
-            'items': {}, 
-            'status': 'desligada', 
-            'connection': 'conectada', 
-            'udp_thread': False, 
-            'random_thread': False
+            "ip": "172.22.208.2", 
+            "ip_broker": 
+            "172.22.208.1", 
+            "id": "GEL01", 
+            "temperature": 0.0, 
+            "category": "atuador", 
+            "items": {}, 
+            "status": "desligada", 
+            "connection": "conectada", 
+            "udp_thread": False, 
+            "random_thread": False
           }
        }
   ```
@@ -200,19 +200,19 @@ uma das rotas da API REST do projeto apresentadas:
   - Resposta: 
   ```json
       {
-        'ip': '172.22.208.1', 
-        'ip_broker': '172.22.208.2', 
-        'id': 'GEL01', 
-        'temperature': 10.0, 
-        'category': 'atuador', 
-        'items': {
-                  'ovos': 12, 
-                  'leite': 5
+        "ip": "172.22.208.1", 
+        "ip_broker": "172.22.208.2", 
+        "id": "GEL01", 
+        "temperature": 10.0, 
+        "category": "atuador", 
+        "items": {
+                  "ovos": 12, 
+                  "leite": 5
                   }, 
-        'status': 'ligada', 
-        'connection': 'conectada', 
-        'udp_thread': False, 
-        'random_thread': False
+        "status": "ligada", 
+        "connection": "conectada", 
+        "udp_thread": False, 
+        "random_thread": False
       }
   ```
 
@@ -222,7 +222,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Resposta: 
   ```json
       {
-        'Confirmação: geladeira ligada!'
+        "Confirmação: geladeira ligada!"
       }
   ```
 
@@ -232,7 +232,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Resposta: 
   ```json
       {
-        'Confirmação: geladeira desligada!'
+        "Confirmação: geladeira desligada!"
       }
   ```
 
@@ -242,7 +242,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Resposta: 
   ```json
       {
-        'Confirmação: temperatura alterada!'
+        "Confirmação: temperatura alterada!"
       }
   ```
 
@@ -252,7 +252,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Resposta: 
   ```json
       {
-        'Confirmação: temperatura atual: 5.75ºC'
+        "Confirmação: temperatura atual: 5.75ºC"
       }
   ```
 
@@ -262,7 +262,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Resposta: 
   ```json
       {
-        'Confirmação: item adicionado!'
+        "Confirmação: item adicionado!"
       }
   ```
 
@@ -272,7 +272,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Resposta: 
   ```json
       {
-        'Confirmação: item removido!'
+        "Confirmação: item removido!"
       }
   ```
 
@@ -282,8 +282,8 @@ uma das rotas da API REST do projeto apresentadas:
   - Resposta: 
   ```json
       {
-      'ITENS NA GELADEIRA:'
-        '- beterraba: 2 unidades'
+      "ITENS NA GELADEIRA:"
+        "- beterraba: 2 unidades"
       }
   ```
  
