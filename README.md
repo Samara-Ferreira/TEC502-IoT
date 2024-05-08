@@ -188,8 +188,8 @@ uma das rotas da API REST do projeto apresentadas:
             "items": {}, 
             "status": "desligada", 
             "connection": "conectada", 
-            "udp_thread": False, 
-            "random_thread": False
+            "udp_thread": "False", 
+            "random_thread": "False"
           }
        }
   ```
@@ -211,8 +211,8 @@ uma das rotas da API REST do projeto apresentadas:
                   }, 
         "status": "ligada", 
         "connection": "conectada", 
-        "udp_thread": False, 
-        "random_thread": False
+        "udp_thread": "False", 
+        "random_thread": "False"
       }
   ```
 
