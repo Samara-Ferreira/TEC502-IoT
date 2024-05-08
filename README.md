@@ -89,12 +89,12 @@ No diagrama abaixo, é representada a comunicação entre o dispositivo e o serv
 solicitar a conexão e a desconexão com o broker. 
 
 <p align="center">
-    <img src="images/conexao-dispositivo.png" width="650">
+    <img src="images/conexao-dispositivo.png" width="400">
 </p>
 <p align="center"><strong> Diagrama da conexão entre o dispositivo e o servidor broker </strong></p>
 
 <p align="center">
-    <img src="images/desconexao-dispositivo.png" width="650">
+    <img src="images/desconexao-dispositivo.png" width="400">
 </p>
 <p align="center"><strong> Diagrama da desconexão entre o dispositivo e o servidor broker </strong></p>
 
@@ -422,7 +422,7 @@ de mensagens, e a manutenção das conexões ativas;
 Abaixo, tem-se a arquitetura do projeto, que ilustra a comunicação entre a aplicação, o servidor broker e os dispositivos:
 
 <p align="center">
-    <img src="images/arquitetura.png" width="650">
+    <img src="images/arquitetura.png" width="500">
 </p>
 <p align="center"><strong> Arquitetura do projeto de IoT </strong></p>
 
@@ -571,7 +571,7 @@ solicitado ao inicializar a aplicação e os dispositivos. Esse endereço _ip_ p
 servidor, pois é necessário que o usuário insira esse endereço de forma manual.
 
 <p align="center">
-    <img src="images/server_init.png" width="650">
+    <img src="images/server_init.png" width="400">
 </p>
 <p align="center"><strong> Inicialização do servidor </strong></p>
 
