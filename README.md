@@ -412,7 +412,7 @@ dispositivo e o servidor broker, incluindo o envio e o recebimento de mensagens;
 adicionar itens, remover itens, entre outros;
 - `device/main_device.py`: este arquivo principal do dispositivo. É o ponto de entrada do dispositivo, fazendo a
 solicitação ao usuário do IP do servidor, e então chama a função menu_fridge(), que exibe o menu de opções do
-dispositivo;
+dispositivo.
 
 <h3> Módulo "Server" </h3>
 
