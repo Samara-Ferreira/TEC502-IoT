@@ -644,9 +644,9 @@ Para a execução do projeto com o _Docker Hub_, primeiramente é necessário ob
 isso, execute os seguintes comandos:
   
 ```
-  docker pull samara-ferreira/application
-  docker pull samara-ferreira/device
-  docker pull samara-ferreira/broker
+  docker pull samarasf/application
+  docker pull samarasf/device
+  docker pull samarasf/broker
 ```
 
 Agora, para a execução do projeto, execute os seguintes comandos:
