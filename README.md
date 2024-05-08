@@ -643,19 +643,19 @@ docker run -p --network host -iti broker
 Para a execução do projeto com o _Docker Hub_, primeiramente é necessário obter as imagens dos módulos do projeto. Para
 isso, execute os seguintes comandos:
   
-    ```
-    docker pull samara-ferreira/tec502-iot:application
-    docker pull samara-ferreira/tec502-iot:device
-    docker pull samara-ferreira/tec502-iot:broker
-    ```
+```
+  docker pull samara-ferreira/tec502-iot:application
+  docker pull samara-ferreira/tec502-iot:device
+  docker pull samara-ferreira/tec502-iot:broker
+```
 
 Agora, para a execução do projeto, execute os seguintes comandos:
 
-    ```
+```
     docker run -p samarasf/tec502-iot:broker --network host
     docker run -p samarasf/tec502-iot:device
     docker run -p samarasf/tec502-iot:application
-    ```
+```
 
 </div>
 
