@@ -5,7 +5,7 @@ from threading import Thread
 from time import sleep
 import socket
 
-import queue    # TESTE
+import queue    
 
 sockets_device = {}
 data_devices = ["", ""]
@@ -24,7 +24,6 @@ def device_connection(tcp_socket, udp_socket):
             device_ip = address[0]
             '''sockets_device[str(device_ip)] = connection'''
 
-            # TESTE
             sockets_device[str(device_ip)] = {
                 "connection": connection,
                 "queue": {
@@ -59,7 +58,6 @@ def device_connection(tcp_socket, udp_socket):
             print("\n\t>> Erro ao aceitar conexão: ", e)
             print("\n\t>> Tentando aceitar novas conexões...\n")
             break
-            # no original, ele dá um break aqui, mas acho que não faz sentido
 
 
 def receive_data_tcp(connection, device_ip):
@@ -76,9 +74,7 @@ def receive_data_tcp(connection, device_ip):
                     break
 
                 else:
-                    '''data_devices[0] = data.decode("utf-8")'''
 
-                    # TESTE
                     sockets_device[str(device_ip)]["queue"]["tcp"].put(data.decode("utf-8"))
 
                     print("\n\t| DADOS TCP | dado recebido de ", device_ip, ": ", data.decode("utf-8"))
@@ -95,8 +91,6 @@ def receive_data_udp(udp_socket):
     while True:
         data, address = udp_socket.recvfrom(2048)
         print("\n\t| DADOS UDP | dado recebido de ", address, ": ", data.decode("utf-8"))
-        # address[1] pega a porta, address[0] pega o IP
-        #data_devices[1] = data.decode("utf-8")
         sockets_device[str(address[0])]["queue"]["udp"].put(data.decode("utf-8"))
 
 
@@ -117,18 +111,11 @@ def receive_command_api(device_address, command, data):
         for device in sockets_device:
             try:
                 message = f"{'1'}:{0}"
-                '''sockets_device[device].send(message.encode("utf-8"))'''
 
-                # TESTE
                 sockets_device[device]["connection"].send(message.encode("utf-8"))
 
                 sleep(0.5)
 
-                '''if data_devices:
-                    response = data_devices[0]
-                    all_devices[device] = eval(response)'''
-
-                # TESTE
                 if not sockets_device[device]["queue"]["tcp"].empty():
                     response = sockets_device[device]["queue"]["tcp"].get()
                     all_devices[device] = eval(response)
@@ -142,20 +129,12 @@ def receive_command_api(device_address, command, data):
         if str(device_address) in sockets_device:
             try:
                 message = f"{command}:{data}"
-                '''sockets_device[str(device_address)].send(message.encode("utf-8"))'''
 
-                # TESTE
                 sockets_device[str(device_address)]["connection"].send(message.encode("utf-8"))
 
                 # ideia: colocar uma flag ao invés do tempo
                 sleep(0.5)
 
-                # verificar se tem oq ser enviado
-                '''if data_devices:
-                    response = data_devices[0]
-                    return str(response)'''
-
-                # TESTE
                 if not sockets_device[str(device_address)]["queue"]["tcp"].empty():
                     response = sockets_device[str(device_address)]["queue"]["tcp"].get()
                     return str(response)

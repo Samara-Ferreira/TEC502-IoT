@@ -7,7 +7,7 @@ from connection import connect_broker, disconnect_broker, close_program, check_r
 import socket
 from clear import clear
 
-HOST = "172.17.0.2"
+HOST = "0"
 
 lenght_print = 50
 
@@ -33,10 +33,8 @@ def menu_fridge():
         print("\t>> Digite o IP do broker: ")
         HOST = str(input("\t> "))
 
-    '''print("\n\tDigite o ID do dispositivo: ")
-    fridge_id = str(input("\t> ").upper())'''
-
-    fridge_id = "gel01".upper()
+    print("\n\tDigite o ID do dispositivo: ")
+    fridge_id = str(input("\t> ").upper())
 
     # verificando se tem 8 caracteres e não é vazio
     while fridge_id == "" or len(fridge_id) > 8:
