@@ -535,19 +535,19 @@ um dos módulos.
 
 Abaixo, são apresentadas as instruções para a execução do projeto com e sem o Docker.
 
-  <h3> Execução sem o Docker </h3>
+<h3> Execução sem o Docker </h3>
 
 A seguir são apresentadas as instruções para a execução do projeto com e sem a utilização do _Docker_.
 
-    <h4> Pré-requisitos </h4>
+<h4> Pré-requisitos </h4>
 
 Para a execução do projeto sem o _Docker_, é necessário ter instalados na máquina as seguintes ferramentas:
 - Python 3.8 ou superior;
 - Pip, para instalação das dependências do projeto;
 - Bibliotecas do Python, como a _Flask_ e a _requests_, listadas no arquivo `requirements.txt` dos módulos ``application`` 
-e ``server``;
+e ``server``.
 
-    <h4> Instalação das Dependências </h4>
+<h4> Instalação das Dependências </h4>
 
 Para instalar as dependências do projeto, acesse o diretório de cada um dos módulos do projeto e execute o seguinte
 comando:
@@ -586,12 +586,12 @@ servidor, pois é necessário que o usuário insira esse endereço de forma manu
 <p align="center"><strong> Inicialização do servidor </strong></p>
 
 
-  <h3> Execução com o Docker </h3>
+<h3> Execução com o Docker </h3>
   
 Para a execução do projeto com o Docker, tem-se duas opções: a execução com o _Docker Hub_ e a execução sem o _Docker 
 Hub_. A execução com o _Docker Hub_ é mais simples, pois não é necessário a criação das imagens dos módulos do projeto.
 
-    <h4> Execução sem o Docker Hub </h4>
+<h4> Execução sem o Docker Hub </h4>
 
 Para essa execução, é necessário acessar o diretório de cada um dos componentes do projeto e executar o seguinte comando:
 
@@ -637,7 +637,7 @@ docker run -p 5571:5571 -p 5572:5572/udp -iti device
 docker run -p --network host -iti broker
 ```
 
-    <h4> Execução com o Docker Hub </h4>
+<h4> Execução com o Docker Hub </h4>
     
 Para a execução do projeto com o _Docker Hub_, primeiramente é necessário obter as imagens dos módulos do projeto. Para
 isso, execute os seguintes comandos:
