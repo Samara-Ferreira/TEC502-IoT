@@ -89,12 +89,12 @@ No diagrama abaixo, é representada a comunicação entre o dispositivo e o serv
 solicitar a conexão e a desconexão com o broker. 
 
 <p align="center">
-    <img src="images/conexao-dispositivo.png" width="400">
+    <img src="images/conexao-dispositivo.png" width="650">
 </p>
 <p align="center"><strong> Diagrama da conexão entre o dispositivo e o servidor broker </strong></p>
 
 <p align="center">
-    <img src="images/desconexao-dispositivo.png" width="400">
+    <img src="images/desconexao-dispositivo.png" width="650">
 </p>
 <p align="center"><strong> Diagrama da desconexão entre o dispositivo e o servidor broker </strong></p>
 
@@ -126,6 +126,7 @@ servidor broker, bem como a forma de envio e retorno dos dados:
 | Dispositivo                               | TCP/IP              | TCP/IP            | String            |                 
 | Aplicação (solicitação/mudança dos dados) | HTTP                | UDP               | JSON              |
 | Aplicação (outros comandos)               | HTTP                | TCP/IP            | JSON              |
+
 </div>
 
 </div>
@@ -150,6 +151,8 @@ As possíveis resposta para as requisições são:
 A tabela a seguir apresenta as rotas da API REST do projeto, bem como os métodos HTTP utilizados e a descrição de cada
 rota:
 
+<div align="center">
+
 | Rota                           | Método HTTP | Descrição                                                   |
 |--------------------------------|-------------|-------------------------------------------------------------|
 | /devices                       | GET         | Retorna todos os dispositivos conectados ao servidor broker |
@@ -162,6 +165,8 @@ rota:
 | /{device_id}/remove/{data}     | POST        | Remove itens de um dispositivo específico                   |
 | /{device_id}/view_items        | GET         | Retorna os itens de um dispositivo específico               |
 
+
+</div>
 
 Cada função retorna um JSON com os dados solicitados. A seguir, são apresentados exemplos de requisições para cada 
 uma das rotas da API REST do projeto apresentadas:
@@ -316,6 +321,7 @@ apresentar a interface CLI do dispositivo, que permite ao usuário enviar comand
 processamento deles e retornar as respostas. 
 
 Na tabela a seguir, são apresentadas as funções do dispositivo, bem como a descrição de cada uma delas:
+<div align="center">
 
 | Número | Função                | Descrição                                              |
 |--------|-----------------------|--------------------------------------------------------|
@@ -329,10 +335,13 @@ Na tabela a seguir, são apresentadas as funções do dispositivo, bem como a de
 | 8      | set_fridge_id()       | Coloca o ID no dispositivo                             |
 | 0      | close_program()       | Fecha o terminal do dispositivo                        |
 
+</div>
 
 Além disso, o dispositivo pode ser acessado de forma remota, por meio da aplicação, tendo quase todas as funções que 
 o próprio dispositivo tem, exceto gerar os valores randomicos. A seguir, são apresentadas as funções do dispositivo na
 aplicação, bem como a descrição de cada uma delas: 
+
+<div align="center">
 
 | Número | Função                | Descrição                                                     |
 |--------|-----------------------|---------------------------------------------------------------|
@@ -345,6 +354,7 @@ aplicação, bem como a descrição de cada uma delas:
 | 7      | remove_item_device()  | Retorna a confirmação da remoção do item, caso seja possível  |
 | 8      | view_items_device()   | Retorna os itens presentes na geladeira                       |
 
+</div>
 </div>
 
 
@@ -422,7 +432,7 @@ de mensagens, e a manutenção das conexões ativas;
 Abaixo, tem-se a arquitetura do projeto, que ilustra a comunicação entre a aplicação, o servidor broker e os dispositivos:
 
 <p align="center">
-    <img src="images/arquitetura.png" width="500">
+    <img src="images/arquitetura.png" width="700">
 </p>
 <p align="center"><strong> Arquitetura do projeto de IoT </strong></p>
 
@@ -571,7 +581,7 @@ solicitado ao inicializar a aplicação e os dispositivos. Esse endereço _ip_ p
 servidor, pois é necessário que o usuário insira esse endereço de forma manual.
 
 <p align="center">
-    <img src="images/server_init.png" width="400">
+    <img src="images/server_init.png" width="650">
 </p>
 <p align="center"><strong> Inicialização do servidor </strong></p>
 
