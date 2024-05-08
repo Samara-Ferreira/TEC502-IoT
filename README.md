@@ -367,7 +367,7 @@ respostas para a aplicação, por meio de um intermediário, o servidor broker. 
 por três módulos principais: 'application', 'device' e 'server'. Cada um desses módulos é responsável por uma parte
 da comunicação. A seguir, são apresentadas as funcionalidades de cada um dos módulos.
 
-  <h3> Módulo "Application" </h3>
+<h3> Módulo "Application" </h3>
 
 O módulo 'application' é responsável por enviar comandos para os dispositivos e receber as respostas dos dispositivos,
 ou seja, tratam da lógica do cliente da aplicação. Para isso, a aplicação é composta por uma interface CLI 
@@ -395,7 +395,7 @@ exibir o menu de opções da aplicação e permitir ao usuário enviar comandos 
 os dispositivos conectados. Por fim, o arquivo `api.py` contem as funções relacionadas à comunicação com a API do
 servidor broker (REST). 
 
-  <h3> Módulo "Device" </h3>
+<h3> Módulo "Device" </h3>
 
 O módulo 'device' é responsável por lidar com as operações e funcionalidades do dispositivo. O dispositivo é capaz 
 de receber comandos da aplicação, de forma remota, processá-los e enviar respostas para a aplicação, por meio do 
@@ -414,7 +414,7 @@ adicionar itens, remover itens, entre outros;
 solicitação ao usuário do IP do servidor, e então chama a função menu_fridge(), que exibe o menu de opções do
 dispositivo;
 
-  <h3> Módulo "Server" </h3>
+<h3> Módulo "Server" </h3>
 
 O módulo 'server' é responsável por intermediar a comunicação entre a aplicação e os dispositivos. O servidor broker
 é responsável por receber as mensagens da aplicação, encaminhá-las para os dispositivos, receber as respostas dos
