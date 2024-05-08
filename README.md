@@ -644,17 +644,17 @@ Para a execução do projeto com o _Docker Hub_, primeiramente é necessário ob
 isso, execute os seguintes comandos:
   
 ```
-  docker pull samara-ferreira/tec502-iot:application
-  docker pull samara-ferreira/tec502-iot:device
-  docker pull samara-ferreira/tec502-iot:broker
+  docker pull samara-ferreira/application
+  docker pull samara-ferreira/device
+  docker pull samara-ferreira/broker
 ```
 
 Agora, para a execução do projeto, execute os seguintes comandos:
 
 ```
-    docker run -p samarasf/tec502-iot:broker --network host
-    docker run -p samarasf/tec502-iot:device
-    docker run -p samarasf/tec502-iot:application
+    docker run -p samarasf/broker --network host
+    docker run -p samarasf/device
+    docker run -p samarasf/application
 ```
 
 </div>
