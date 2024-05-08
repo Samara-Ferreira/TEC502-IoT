@@ -13,12 +13,12 @@ Computação da Universidade Estadual de Feira de Santana (UEFS).
 <div id="sumario">
 	<ul>
         <li><a href="#descricao-do-projeto"> Descrição do Projeto</a></li>
-        <li><a href="protocolos-de-comunicacao"> Protocolos de Comunicação</a></li>
-        <li><a href="interface-aplicacao"> Interface de Aplicação (REST)</a></li>
-        <li><a href="dispositivo"> Dispositivo</a></li>
-        <li><a href="arquitetura-da-solucao"> Arquitetura da Solução</a></li>
-        <li><a href="execucao-do-projeto">Execução do Projeto</a></li>
-        <li><a href="referencias">Referências</a></li>
+        <li><a href="#protocolos-de-comunicacao"> Protocolos de Comunicação</a></li>
+        <li><a href="#interface-aplicacao"> Interface de Aplicação (REST)</a></li>
+        <li><a href="#dispositivo"> Dispositivo</a></li>
+        <li><a href="#arquitetura-da-solucao"> Arquitetura da Solução</a></li>
+        <li><a href="#execucao-do-projeto">Execução do Projeto</a></li>
+        <li><a href="#referencias">Referências</a></li>
     </ul>
 </div>
 
