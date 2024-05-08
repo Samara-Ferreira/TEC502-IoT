@@ -289,7 +289,7 @@ uma das rotas da API REST do projeto apresentadas:
  
 </div>
 
-<div id="dispositivo">
+<div id="dispositivo" align="justify">
   <h2> Dispositivo </h2>
   
 O dispositivo do projeto é uma geladeira, que possui funções como ligar, desligar, adicionar itens, remover itens,
@@ -301,26 +301,27 @@ para o dispositivo, fazer o processamento deles e retornar as respostas, sem a n
 O dispositivo é composto por três arquivos principais: `connection.py`, `fridge.py` e `main_device.py`. Abaixo, são
 apresentadas as funcionalidades de cada um dos arquivos do dispositivo:
 
-  <h3> Arquivo "connection.py" </h3>
+<h3> Arquivo "connection.py" </h3>
  
 O arquivo `connection.py` é responsável por lidar com as conexões TCP/IP e UDP do dispositivo, bem como a conexão com o
 servidor broker. Ele é responsável por enviar e receber mensagens, manter a conexão ativa e encerrar a conexão. Além
 disso, ele é responsável por manter a comunicação entre o dispositivo e o servidor broker, por meio dos protocolos TCP/IP
 e UDP.
 
-  <h3> Arquivo "fridge.py" </h3>
+<h3> Arquivo "fridge.py" </h3>
   
 O arquivo `fridge.py` é responsável por manter o estado e as operações do dispositivo (geladeira). Ele possui funções
 como ligar, desligar, adicionar itens, remover itens, entre outros. Além disso, ele é responsável por manter os dados
 do dispositivo, como a temperatura, os itens presentes na geladeira, entre outros.
 
-  <h3> Arquivo "main_device.py" </h3>
+<h3> Arquivo "main_device.py" </h3>
 
 O arquivo `main_device.py` é o ponto de entrada do dispositivo. Ele é responsável por inicializar o dispositivo e
 apresentar a interface CLI do dispositivo, que permite ao usuário enviar comandos para o dispositivo, fazer o
 processamento deles e retornar as respostas. 
 
 Na tabela a seguir, são apresentadas as funções do dispositivo, bem como a descrição de cada uma delas:
+
 <div align="center">
 
 | Número | Função                | Descrição                                              |
@@ -437,7 +438,7 @@ Abaixo, tem-se a arquitetura do projeto, que ilustra a comunicação entre a apl
 <p align="center"><strong> Arquitetura do projeto de IoT </strong></p>
 
   
-  <h3> Conexões Simultâneas </h3>
+<h3> Conexões Simultâneas </h3>
   
 As Threads são linhas de execução independentes, nas quais é possível executar conexões de forma simultânea, sem uma
 interferir de forma direta na outra. 
@@ -464,14 +465,14 @@ O intuito de usar as threads foi para que as conexões pudessem ser feitas de fo
 na outra. Dessa forma, é possível que o servidor broker receba os dados via TCP/IP e via UDP, e que os dispositivos
 recebam os dados via TCP e enviem os dados via UDP, de forma simultânea. 
 
-  <h3> Desempenho e Concorrência </h3>
+<h3> Desempenho e Concorrência </h3>
   
 Alguns mecanismos foram utilizados para melhorar o tempo de resposta para a aplicação. Um desses mecanismos foi a
 utilização de threads, que permitem a execução de conexões simultâneas, sem que uma interfira na outra. Além disso,
 foi feito o controle de concorrência, por meio de flags, para garantir que os dados sejam enviados na ordem correta
 e sem perdas.
 
-  <h3> Confiabilidade </h3>
+<h3> Confiabilidade </h3>
   
 Com relação a confiabilidade, o projeto foi testado para verificar se ele é capaz de lidar com falhas de conexão, como
 a retirada do cabo de rede de um dos nós. O projeto foi capaz de lidar com essas falhas, mantendo a comunicação entre
