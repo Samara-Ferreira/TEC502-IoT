@@ -175,7 +175,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Método: GET
   - Rota: /devices
   - Resposta: 
-  ``` 
+  ``` json
       {
         '172.22.208.1': 
           {
@@ -198,7 +198,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Método: GET
   - Rota: /{device_id}/view
   - Resposta: 
-  ```
+  ```json
       {
         'ip': '172.22.208.1', 
         'ip_broker': '172.22.208.2', 
@@ -220,7 +220,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Método: POST
   - Rota: /{device_id}/on
   - Resposta: 
-  ```
+  ```json
       {
         'Confirmação: geladeira ligada!'
       }
@@ -230,7 +230,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Método: POST
   - Rota: /{device_id}/off
   - Resposta: 
-  ```
+  ```json
       {
         'Confirmação: geladeira desligada!'
       }
@@ -240,7 +240,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Método: POST
   - Rota: /{device_id}/change/{new_data}
   - Resposta: 
-  ```
+  ```json
       {
         'Confirmação: temperatura alterada!'
       }
@@ -250,7 +250,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Método: GET
   - Rota: /{device_id}/return
   - Resposta: 
-  ```
+  ```json
       {
         'Confirmação: temperatura atual: 5.75ºC'
       }
@@ -260,7 +260,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Método: POST
   - Rota: /{device_id}/add/{data}
   - Resposta: 
-  ```
+  ```json
       {
         'Confirmação: item adicionado!'
       }
@@ -270,7 +270,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Método: POST
   - Rota: /{device_id}/remove/{data}
   - Resposta: 
-  ```
+  ```json
       {
         'Confirmação: item removido!'
       }
@@ -280,7 +280,7 @@ uma das rotas da API REST do projeto apresentadas:
   - Método: GET
   - Rota: /{device_id}/view_items
   - Resposta: 
-  ```
+  ```json
       {
       'ITENS NA GELADEIRA:'
         '- beterraba: 2 unidades'
