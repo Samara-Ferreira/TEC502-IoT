@@ -1,29 +1,35 @@
 # arquivo que vai lidar com as conexões TCP e UDP, incluindo
 # o envio e recebimento de mensagens
 
-from fridge import *
+""" Este arquivo é responsável por lidar com as comunicações do dispositivo, como a conexão com o Broker, envio
+dos comandos via TCP/IP e recebimento das respostas via UDP, caso seja uma resposta com dados """
+
 from threading import Thread
+from fridge import *
 import socket
 
 HOST = "0"
-TCP_PORT = 5551
-UDP_PORT = 5552
+TCP_PORT = 5571
+UDP_PORT = 5572
 
 sockets_list = ["", ""]
 
-threads_list = []
 
-
+# função para fazer a conexão do Broker
 def connect_broker():
     global HOST
     HOST = get_fridge_ip_broker()
 
+    # caso a geladeira já esteja conectada ao Broker
     if get_fridge_connection_status() == "conectada":
         print("\tErro: conexão já estabelecida!\n")
+    # caso a geladeira não esteja conectada ao Broker
     else:
         try:
             tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            tcp_socket.settimeout(5)
             tcp_socket.connect((HOST, TCP_PORT))
+            tcp_socket.settimeout(None)
             sockets_list[0] = tcp_socket
 
             udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -31,21 +37,27 @@ def connect_broker():
 
             set_fridge_connection_status("conectada")
 
+            # criação da Thread para receber os dados via TCP
             receive_data_tcp_thread = Thread(target=receive_data_tcp)
-            threads_list.append(receive_data_tcp_thread)
             receive_data_tcp_thread.start()
 
             print("\tConexão estabelecida com sucesso!\n")
 
+        # possíveis erros que podem ocorrer
+        except socket.timeout:
+            print("\tErro: tempo de conexão encerrado!\n")
         except ConnectionRefusedError:
             print("\tErro: conexão recusada pelo servidor!\n")
         except socket.error:
             print("\tErro: conexão não estabelecida!\n")
 
 
+# função para fazer a desconexão com o Broker
 def disconnect_broker():
+    # caso a geladeira já esteja desconectada
     if get_fridge_connection_status() == "desconectada":
         print("\tErro: conexão já encerrada!\n")
+    # caso a geladeira não esteja conectada
     else:
         try:
             if sockets_list[0]:
@@ -57,12 +69,14 @@ def disconnect_broker():
 
             if sockets_list[0]:
                 sockets_list[0].close()
+                sockets_list[1].close()
+
+            # parar o envio dos dados UDP
+            set_udp_thread_status(False)
 
             print("\tConexão encerrada com sucesso!\n")
 
-            for thread in threads_list:
-                thread.join()
-
+        # possíveis erros que podem acontecer
         except socket.error:
             print("\tErro: conexão não encerrada!\n")
         except AttributeError as e:
@@ -71,6 +85,7 @@ def disconnect_broker():
             print("\tErro: conexão encerrada pelo servidor!\n")
 
 
+# função para fazer o envio dos dados via
 def send_tcp(message):
     try:
         sockets_list[0].send(message.encode("utf-8"))
@@ -114,19 +129,24 @@ def receive_data_tcp():
             except ValueError:
                 pass
 
+        except socket.error:
+            #print("\tErro socket: conexão encerrada de forma inesperada!\n")
+            set_fridge_connection_status("desconectada")
+            break
         except ConnectionResetError:
             print("\tErro: conexão encerrada pelo servidor!\n")
             break
         except AttributeError:
             break
-        except socket.error:
-            print("\tErro socket: conexão não estabelecida!\n")
-            break
 
 
 def menu_receive_tcp(command, data):
+    # comando para retornar o status de conexão
+    if command == "-2":
+        send_tcp(f"{get_fridge_connection_status()}")
+
     # comando para atualizar o IP do dispositivo
-    if command == "-1":
+    elif command == "-1":
         set_fridge_ip(str(data))
 
     # comando pegar os dados do dispositivo
@@ -155,7 +175,7 @@ def menu_receive_tcp(command, data):
     # comando para retornar a temperatura
     elif command == "5":
         check_udp_thread()
-        send_tcp(f"\tConfirmação: temperatura atual: {get_temperature()}ºC\n")
+        send_tcp(f"\tConfirmação: temperatura atual: {get_fridge_temperature()}ºC\n")
 
     # comando para adicionar um item
     elif command == "6":
@@ -183,8 +203,6 @@ def menu_receive_tcp(command, data):
 def close_program():
     if get_fridge_connection_status() == "conectada":
         disconnect_broker()
-    #sockets_list[0].close()
-    sockets_list[1].close()
     print("\tPrograma encerrado!\n")
     sleep(1)
 
@@ -193,7 +211,6 @@ def check_udp_thread():
     if not get_udp_thread_status():
         set_udp_thread_status(True)
         udp_thread = Thread(target=send_udp)
-        threads_list.append(udp_thread)
         udp_thread.start()
 
 
@@ -202,8 +219,6 @@ def check_random_thread(status):
         if not get_random_thread_status():
             set_random_thread_status(True)
             random_thread = Thread(target=random_temperature)
-            threads_list.append(random_thread)
             random_thread.start()
     else:
         set_random_thread_status(False)
-

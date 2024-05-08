@@ -4,9 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-EXPOSE 5551
-EXPOSE 5552/udp
+EXPOSE 5571
+EXPOSE 5572/udp
 
 CMD ["python", "main_device.py"]
-
-

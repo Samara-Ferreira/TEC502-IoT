@@ -7,8 +7,8 @@ COPY . .
 
 RUN pip install Flask
 
-EXPOSE 5555
-EXPOSE 5551
-EXPOSE 5552/udp
+EXPOSE 5575
+EXPOSE 5571
+EXPOSE 5572/udp
 
-CMD ["python", "api_broker.py"]
+CMD ["python", "main_api.py"]

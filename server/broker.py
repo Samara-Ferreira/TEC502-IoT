@@ -1,15 +1,16 @@
-# arquivo responsável por iniciar o servidor e lidar com as conexões TCP e UDP
+""" Módulo responsável por criar o servidor broker que irá se comunicar com os dispositivos """
 
 # importações
 import socket
 from threading import Thread
 
-from server_connections import device_connection
+from broker_connections import device_connection
+from clear import clear
 
 # constantes
 HOST = str(socket.gethostbyname(socket.gethostname()))
-PORT_TCP = 5551
-PORT_UDP = 5552
+PORT_TCP = 5571
+PORT_UDP = 5572
 
 tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -17,6 +18,7 @@ udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 def main():
     try:
+        clear()
         print("\tIP do servidor: ", HOST, "Porta TCP: ", PORT_TCP, "Porta UDP: ", PORT_UDP)
 
         tcp_socket.bind((HOST, PORT_TCP))
